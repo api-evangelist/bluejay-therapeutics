@@ -1,18 +1,104 @@
 aid: bluejay-therapeutics
 name: Bluejay Therapeutics
-description: 'Bluejay Therapeutics is a company surfaced via the API Evangelist harvest backlog (source:
-  secondary-market) and added to the network as a stub for full-pipeline profiling.'
+image: https://bluejaytx.com/wp-content/uploads/2023/01/BluejayTx_Logo.png
+description: >-
+  Bluejay Therapeutics, Inc. was a clinical-stage biopharmaceutical company headquartered in Redwood
+  City, California, developing treatments for viral hepatitis and liver disease. Its lead asset,
+  brelovitug (BJT-778), is an investigational monoclonal antibody targeting the surface antigen
+  shared by the hepatitis D and hepatitis B viruses; it received U.S. FDA Breakthrough Therapy
+  designation for chronic hepatitis delta and reported a 100% virologic response at week 48 in its
+  Phase 2 monotherapy study before entering the AZURE-2 global Phase 3 trial. The company also
+  advanced a proprietary TLR9 agonist (cavrotolimod), a liver-targeted HBV transcript inhibitor
+  (BJT-628) and a liver-targeted fatty acid synthase inhibitor (BJT-188) toward a combination
+  regimen aimed at functional cure of chronic hepatitis B. Mirum Pharmaceuticals agreed to acquire
+  Bluejay Therapeutics in December 2025 and completed the acquisition on 26 January 2026; the
+  corporate site now serves a single acquisition notice redirecting readers to mirumpharma.com.
+  Bluejay Therapeutics never ran a developer program — no product API, no developer portal, no API
+  documentation, no SDKs, no GitHub organisation and no package-registry presence. The only
+  machine-readable surface reachable without credentials is the WordPress REST content API behind
+  bluejaytx.com, catalogued here. That surface is notable for outliving the web site it belongs to:
+  the marketing page tree was deleted in the teardown, but the REST API and the post archive still
+  serve all 35 press releases and publication notices from 2021 through 2025 with full text.
 url: https://raw.githubusercontent.com/api-evangelist/bluejay-therapeutics/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enriched
 specificationVersion: '0.20'
 created: '2026-08-07'
 modified: '2026-08-07'
 tags:
 - Company
-apis: []
+- biopharmaceuticals
+- pharmaceuticals
+- life-sciences
+- hepatology
+- infectious-disease
+- clinical-trials
+- drug-development
+- monoclonal-antibodies
+- content-api
+apis:
+- aid: bluejay-therapeutics:bluejay-therapeutics-content-api
+  name: Bluejay Therapeutics Content API
+  description: >-
+    The anonymously readable WordPress REST API behind bluejaytx.com. It exposes the 35 published
+    press releases and publication notices spanning 2021-08-12 to 2025-12-08 with full
+    `content.rendered` bodies, the 99-item media library of press-release PDFs and poster decks,
+    the four content categories (Press Release 26, Publication 8, Presentation 0, Uncategorized 1),
+    the single tag, the registered post types, taxonomies and statuses, cross-content search, and
+    the oEmbed 1.0 provider endpoint. The one thing a consumer must know is that this API now
+    carries more of the company's record than its web site does: after the Mirum Pharmaceuticals
+    acquisition completed on 26 January 2026 the page tree was collapsed to a single page (id 606,
+    served at the root) holding a two-sentence acquisition notice, and /about/, /science/,
+    /pipeline/, /news/, /contact/ and /privacy-policy/ all return 404 — while every press release
+    remains fully readable over REST, at its original permalink, and through the category archive.
+    This is not a developer product Bluejay Therapeutics marketed; it is the site's own content
+    surface, registered at /wp-json/ and verified against live anonymous responses on 2026-08-07.
+    The OpenAPI in this repo is derived from the published route index.
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://bluejaytx.com/wp-json
+  tags:
+  - content
+  - wordpress
+  - corporate
+  - press-releases
+  - media
+  properties:
+  - type: OpenAPI
+    url: openapi/bluejay-therapeutics-content-openapi.yml
+  - type: Overlay
+    url: overlays/bluejay-therapeutics-content-overlay.yaml
+  - type: Authentication
+    url: authentication/bluejay-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/bluejay-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/bluejay-therapeutics-conventions.yml
+  - type: DataModel
+    url: data-model/bluejay-therapeutics-data-model.yml
+  - type: JSONLD
+    url: json-ld/bluejay-therapeutics-json-ld.yml
+  x-contract-provenance: >-
+    Derived by the API Evangelist enrichment pipeline from the WordPress REST route index the site
+    publishes at https://bluejaytx.com/wp-json/ — 372 routes across the 17 namespaces oembed/1.0,
+    wpe/cache-plugin/v1, wpe_sign_on_plugin/v1, aioseo/v1, code-snippets/v1, contact-form-7/v1,
+    jupiterx-license, elementor/v1, monsterinsights/v1, elementor/v1/documents, elementor-ai/v1,
+    elementor-pro/v1, omapp/v1, wp/v2, wp-site-health/v1, wp-block-editor/v1 and wp-abilities/v1 —
+    and verified against live anonymous responses on 2026-08-07. Only the 26 operations that were
+    individually called and returned data without credentials are modelled. The site registers the
+    WordPress Abilities API (`wp-abilities/v1`), an agent-facing capability registry, but every
+    endpoint under it returns 401 rest_forbidden anonymously, so no agent surface is claimed here.
+    /wp/v2/settings, /wp/v2/themes, /wp/v2/plugins, /wp/v2/menus, /wp/v2/menu-locations,
+    /wp/v2/widgets, /wp/v2/block-types, /wp/v2/templates, /wp/v2/font-collections, /wp/v2/icons,
+    /oembed/1.0/proxy, all aioseo/v1, elementor/v1 and wp-site-health/v1 routes return 401, and
+    /contact-form-7/v1/contact-forms returns 403 wpcf7_forbidden. /wp/v2/users returns 200
+    anonymously with five named individuals and is DELIBERATELY NOT MODELLED under the enrichment
+    PII guardrail — the exposure is documented in conventions/, but no operation, agent skill or
+    MCP tool is emitted for it. Bluejay Therapeutics publishes no developer documentation, no API
+    reference, no getting-started guide and no support channel for this surface, so no
+    Documentation/APIReference/GettingStarted pointers are emitted; the humanURL above is the
+    upstream WordPress REST handbook that defines the wp/v2 contract.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +106,45 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: https://bluejaytx.com/
+- type: Blog
+  url: https://bluejaytx.com/category/press-releases/
+- type: BlogRSS
+  url: https://bluejaytx.com/feed/
+- type: Publications
+  url: https://bluejaytx.com/category/publication/
+- type: Sitemap
+  url: https://bluejaytx.com/sitemap.xml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/bluejay-therapeutics/
+- type: Acquirer
+  url: https://mirumpharma.com/
+- type: SecondaryMarket
   url: https://forgeglobal.com/bluejay-therapeutics_stock/
+- type: Authentication
+  url: authentication/bluejay-therapeutics-authentication.yml
+- type: Conventions
+  url: conventions/bluejay-therapeutics-conventions.yml
+- type: Conformance
+  url: conformance/bluejay-therapeutics-conformance.yml
+- type: ErrorCatalog
+  url: errors/bluejay-therapeutics-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/bluejay-therapeutics-lifecycle.yml
+- type: DataModel
+  url: data-model/bluejay-therapeutics-data-model.yml
+- type: JSONLD
+  url: json-ld/bluejay-therapeutics-json-ld.yml
+- type: WellKnown
+  url: well-known/bluejay-therapeutics-well-known.yml
+- type: DomainSecurity
+  url: security/bluejay-therapeutics-domain-security.yml
+- type: LLMsTxt
+  url: llms/bluejay-therapeutics-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-08-07'
+  status: enriched
+  artifacts_added: 14
+  pass: local-v1
