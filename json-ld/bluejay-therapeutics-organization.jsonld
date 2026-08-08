@@ -1,0 +1,64 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://bluejaytx.com/#breadcrumblist",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "@id": "https://bluejaytx.com#listItem",
+          "position": 1,
+          "name": "Home"
+        }
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://bluejaytx.com/#organization",
+      "name": "Bluejay Therapeutics",
+      "description": "Creating a new paradigm for viral and liver diseases.",
+      "url": "https://bluejaytx.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://bluejaytx.com/wp-content/uploads/2023/01/BluejayTx_Logo.png",
+        "@id": "https://bluejaytx.com/#organizationLogo",
+        "width": 400,
+        "height": 400
+      },
+      "image": {
+        "@id": "https://bluejaytx.com/#organizationLogo"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/bluejay-therapeutics/"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://bluejaytx.com/#webpage",
+      "url": "https://bluejaytx.com/",
+      "name": "Bluejay Therapeutics",
+      "description": "January 26, 2026Mirum Pharmaceuticals Completes Acquisition of Bluejay TherapeuticsFor the latest information on brelovitug and to follow Mirum's work in chronic hepatitis delta virus and rare diseases, visit https://mirumpharma.com -",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://bluejaytx.com/#website"
+      },
+      "breadcrumb": {
+        "@id": "https://bluejaytx.com/#breadcrumblist"
+      },
+      "datePublished": "2026-01-26T05:06:56-08:00",
+      "dateModified": "2026-01-26T05:33:27-08:00"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://bluejaytx.com/#website",
+      "url": "https://bluejaytx.com/",
+      "name": "Bluejay Therapeutics",
+      "description": "Creating a new paradigm for viral and liver diseases.",
+      "inLanguage": "en-US",
+      "publisher": {
+        "@id": "https://bluejaytx.com/#organization"
+      }
+    }
+  ]
+}

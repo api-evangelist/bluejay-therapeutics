@@ -1,0 +1,121 @@
+# Bluejay Therapeutics
+
+> Bluejay Therapeutics, Inc. was a clinical-stage biopharmaceutical company in Redwood City,
+> California, developing treatments for viral hepatitis and liver disease — led by brelovitug
+> (BJT-778), a monoclonal antibody against the surface antigen shared by the hepatitis D and
+> hepatitis B viruses, which held FDA Breakthrough Therapy designation for chronic hepatitis delta
+> and entered the AZURE-2 global Phase 3 trial. Mirum Pharmaceuticals completed its acquisition of
+> the company on 26 January 2026. Bluejay Therapeutics never ran a developer program. The only
+> machine-readable surface it publishes is the WordPress REST content API behind bluejaytx.com.
+
+GENERATED, NOT PUBLISHED. This file was written by the API Evangelist enrichment pipeline on
+2026-08-07. It is not served by bluejaytx.com — https://bluejaytx.com/llms.txt returns 404.
+
+## What you are actually looking at
+
+The corporate site was collapsed to a single page when the acquisition closed. `/about/`,
+`/science/`, `/pipeline/`, `/news/`, `/contact/` and `/privacy-policy/` all return 404; the root
+serves a two-sentence acquisition notice pointing at https://mirumpharma.com.
+
+The machine-readable surface survived the teardown intact. The REST API still returns all 35 press
+releases and publication notices from 2021-08-12 through 2025-12-08 with full text, plus the
+99-item media library of press-release PDFs and conference decks. The HTML category archives and
+individual post permalinks also still resolve. For this company the API is now a more complete
+public record than the web site it belongs to. The content is frozen — nothing has been published
+since the acquisition — so treat it as a closed historical archive.
+
+## API
+
+- [Bluejay Therapeutics Content API](https://bluejaytx.com/wp-json/): The anonymously readable
+  WordPress REST API behind bluejaytx.com. 372 registered routes across 17 namespaces; 26 of them
+  return data without credentials. No API key, no OAuth, no signup — every read is public.
+- [WordPress REST API handbook](https://developer.wordpress.org/rest-api/): The upstream contract
+  this API implements. Bluejay Therapeutics publishes no documentation of its own.
+
+## Specs and artifacts (API Evangelist, derived)
+
+- [OpenAPI 3.1](openapi/bluejay-therapeutics-content-openapi.yml): 26 operations, each individually
+  verified live before being modelled. Derived from the site's own route index — the provider
+  publishes no OpenAPI.
+- [Overlay](overlays/bluejay-therapeutics-content-overlay.yaml): What API Evangelist added on top
+  of the mechanical derivation.
+- [Conventions](conventions/bluejay-therapeutics-conventions.yml): Pagination, sparse fieldsets,
+  hypermedia, content format, and the personal-data exposure note.
+- [Error catalog](errors/bluejay-therapeutics-problem-types.yml): The WordPress error envelope.
+  Not RFC 9457.
+- [Authentication](authentication/bluejay-therapeutics-authentication.yml): Anonymous reads;
+  Application Passwords for the closed write surface.
+- [Data model](data-model/bluejay-therapeutics-data-model.yml): Six populated entities, five empty.
+- [Conformance](conformance/bluejay-therapeutics-conformance.yml): What standards this surface does
+  and does not meet.
+- [Lifecycle](lifecycle/bluejay-therapeutics-lifecycle.yml): Acquisition timeline, teardown map,
+  and the absence of any deprecation policy.
+- [Domain security](security/bluejay-therapeutics-domain-security.yml): TLS 1.3, DNSSEC on, no
+  HSTS, no CAA, no DMARC.
+- [Well-known](well-known/bluejay-therapeutics-well-known.yml): Every path probed, all 404.
+- [JSON-LD](json-ld/bluejay-therapeutics-json-ld.yml): The homepage schema.org graph, verbatim.
+- [Agent skills](skills/_index.yml): Two skills grounded in real operationIds.
+
+## How to read the archive
+
+Get the whole index in one call — do not page through full bodies unless you need them:
+
+    GET https://bluejaytx.com/wp-json/wp/v2/posts?per_page=100&_fields=id,slug,date,title,link,categories
+
+Then fetch bodies selectively:
+
+    GET https://bluejaytx.com/wp-json/wp/v2/posts/{id}
+
+Filter to press releases (category 14) or publications (category 17):
+
+    GET https://bluejaytx.com/wp-json/wp/v2/posts?categories=14&per_page=100
+
+Isolate the substantive PDFs in the media library:
+
+    GET https://bluejaytx.com/wp-json/wp/v2/media?mime_type=application/pdf&per_page=100
+
+Search across the archive:
+
+    GET https://bluejaytx.com/wp-json/wp/v2/search?search=brelovitug&per_page=100
+
+Notes that will save you time:
+
+- `content.rendered` is HTML, and newer posts are wrapped in Elementor `div[data-elementor-type]`
+  scaffolding around the prose. Strip it.
+- `guid.rendered` looks like a URL but is a frozen internal identifier pointing at a WP Engine
+  staging host. It does not resolve. Use `link`.
+- Totals come back in the `X-WP-Total` and `X-WP-TotalPages` response headers.
+- `per_page` is capped at 100; exceeding it returns 400, not a clamp.
+- Six collections answer 200 with an empty array — comments, portfolio, portfolio_category,
+  portfolio_tag, blocks, navigation. Empty is a success, not a retryable failure.
+- No rate-limit headers are published. robots.txt asks for a 10-second crawl delay. Self-throttle.
+
+## Content
+
+- [Press releases](https://bluejaytx.com/category/press-releases/): 26 items, still browsable.
+- [Publications](https://bluejaytx.com/category/publication/): 8 items.
+- [RSS feed](https://bluejaytx.com/feed/): 10 most recent items.
+- [Sitemap](https://bluejaytx.com/sitemap.xml): Index; post-sitemap.xml lists all 35.
+
+## Company
+
+- [Website](https://bluejaytx.com/): Single acquisition-notice page.
+- [Mirum Pharmaceuticals](https://mirumpharma.com/): The acquirer. Current information on
+  brelovitug lives here, not on bluejaytx.com.
+- [LinkedIn](https://www.linkedin.com/company/bluejay-therapeutics/)
+
+## Not available
+
+Stated so an agent stops looking: no developer portal, no API documentation, no API reference, no
+getting-started guide, no SDKs, no CLI, no package-registry presence (npm, PyPI and the rest all
+miss), no GitHub organisation, no Postman collection, no sandbox, no pricing, no signup, no support
+channel, no status page, no changelog, no webhooks, no events, no AsyncAPI, no GraphQL, no MCP
+server, no A2A agent card, no security.txt, no trust center, no compliance program, and — since the
+teardown — not even a privacy policy. No `api.`, `developer.`, `docs.`, `portal.`, `status.`,
+`trust.` or `security.` subdomain resolves.
+
+The site does register the WordPress Abilities API (`wp-abilities/v1`), the agent-facing capability
+registry, but every route under it returns 401 to anonymous callers. There is no agent surface here.
+
+`/wp/v2/users` returns author records anonymously. It is deliberately excluded from the OpenAPI and
+from the agent skills as personal data, and no tool is provided for it.

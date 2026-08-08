@@ -1,0 +1,50 @@
+generated: '2026-08-07'
+method: searched
+source: https://bluejaytx.com/
+description: >-
+  The schema.org JSON-LD graph Bluejay Therapeutics embeds in the head of its homepage, saved
+  verbatim. Emitted by the All in One SEO plugin. Because the acquisition teardown removed every
+  other page on the site, this single graph is now the entirety of the company's structured-data
+  footprint on its own domain.
+documents:
+- file: bluejay-therapeutics-organization.jsonld
+  url: https://bluejaytx.com/
+  http_status: 200
+  format: application/ld+json
+  context: https://schema.org
+  nodes:
+  - type: Organization
+    id: https://bluejaytx.com/#organization
+    name: Bluejay Therapeutics
+    description: Creating a new paradigm for viral and liver diseases.
+    logo: https://bluejaytx.com/wp-content/uploads/2023/01/BluejayTx_Logo.png
+    same_as:
+    - https://www.linkedin.com/company/bluejay-therapeutics/
+  - type: WebSite
+    id: https://bluejaytx.com/#website
+    name: Bluejay Therapeutics
+    in_language: en-US
+  - type: WebPage
+    id: https://bluejaytx.com/#webpage
+    date_published: '2026-01-26T05:06:56-08:00'
+    date_modified: '2026-01-26T05:33:27-08:00'
+    note: >-
+      The WebPage description carries the acquisition notice — "Mirum Pharmaceuticals Completes
+      Acquisition of Bluejay Therapeutics" — so the structured data itself records the wind-down.
+  - type: BreadcrumbList
+    id: https://bluejaytx.com/#breadcrumblist
+    items: 1
+    note: A single "Home" crumb, because there is only one page left to navigate.
+notes:
+  sameas_coverage: >-
+    The graph declares exactly one sameAs link, to LinkedIn. No X/Twitter, GitHub, Crunchbase or
+    other profile is asserted by the company on its own site.
+  no_medical_markup: >-
+    Despite being a clinical-stage biopharmaceutical company, the site publishes no
+    MedicalCondition, Drug, MedicalTrial or Dataset markup on any surviving page — the JSON-LD is
+    generic CMS/SEO markup only.
+x-evidence:
+  fetched: '2026-08-07'
+  url: https://bluejaytx.com/
+  http_status: 200
+  content_type: text/html; charset=UTF-8

@@ -1,0 +1,92 @@
+generated: '2026-08-07'
+method: probed
+source: https://bluejaytx.com/wp-json/
+docs: https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
+summary:
+  types: []
+  api_key_in: []
+  oauth2_flows: []
+  note: >-
+    The OpenAPI derived for this provider declares NO securitySchemes, and that is a faithful
+    record rather than a gap. Every one of the 26 modelled operations is a public read that
+    returns 200 without any credential, header or cookie. The mechanical
+    0-working/derive-authentication.py pass therefore produced no profile; this file was written
+    from the live probe instead.
+model: anonymous-read
+description: >-
+  The Bluejay Therapeutics Content API is the WordPress REST API behind bluejaytx.com. Its public
+  read surface is entirely unauthenticated: posts, pages, media, categories, tags, search, types,
+  taxonomies, statuses and the oEmbed provider all answer anonymously. Authentication exists only
+  for the write and administrative surface, which is closed to the public.
+schemes:
+- name: none
+  type: none
+  applies_to: all 26 modelled read operations
+  description: >-
+    No credential is required or accepted for reads. Requests carrying no Authorization header
+    return the same 200 responses as any other client.
+  sources: [openapi/bluejay-therapeutics-content-openapi.yml]
+advertised_mechanisms:
+- name: application-passwords
+  type: http
+  scheme: basic
+  description: >-
+    The site's own route index at /wp-json/ advertises exactly one authentication mechanism, under
+    the `authentication` key — WordPress Application Passwords, a per-user Basic credential issued
+    from wp-admin. This is the only way to reach the write and administrative routes.
+  authorization_endpoint: https://bluejaytx.com/wp-admin/authorize-application.php
+  public_issuance: false
+  note: >-
+    Issuance requires an existing wp-admin account, so this is a staff mechanism, not a developer
+    onboarding path. There is no self-service signup, no key request form and no developer program.
+  source: https://bluejaytx.com/wp-json/
+- name: cookie-nonce
+  type: apiKey
+  in: header
+  parameter_name: X-WP-Nonce
+  description: >-
+    Standard WordPress logged-in cookie authentication paired with an X-WP-Nonce header, used by
+    the site's own admin JavaScript. The header is named in the Access-Control-Allow-Headers
+    response header on every route. Not usable by third parties.
+  source: response header Access-Control-Allow-Headers on https://bluejaytx.com/wp-json/wp/v2/posts
+authorization:
+  model: WordPress capability checks
+  description: >-
+    Authorization is enforced per route by WordPress capability checks rather than by scopes.
+    Anonymous callers hold no capabilities, which is why the read surface is wide open and
+    everything else fails closed.
+  denied_anonymously:
+  - {route: /wp/v2/settings, status: 401, code: rest_forbidden}
+  - {route: /wp/v2/themes, status: 401, code: rest_cannot_view_themes}
+  - {route: /wp/v2/plugins, status: 401, code: rest_cannot_view_plugins}
+  - {route: /wp/v2/menus, status: 401, code: rest_cannot_view}
+  - {route: /wp/v2/menu-locations, status: 401, code: rest_cannot_view}
+  - {route: /wp/v2/widgets, status: 401, code: rest_cannot_manage_widgets}
+  - {route: /wp/v2/block-types, status: 401, code: rest_block_type_cannot_view}
+  - {route: /wp/v2/templates, status: 401, code: rest_cannot_manage_templates}
+  - {route: /wp/v2/font-collections, status: 401, code: rest_cannot_read}
+  - {route: /wp/v2/icons, status: 401, code: rest_cannot_view}
+  - {route: /wp-abilities/v1/abilities, status: 401, code: rest_forbidden}
+  - {route: /wp-abilities/v1/categories, status: 401, code: rest_forbidden}
+  - {route: /oembed/1.0/proxy, status: 401, code: rest_forbidden}
+  - {route: /aioseo/v1/ping, status: 401, code: rest_forbidden}
+  - {route: /aioseo/v1/options, status: 401, code: rest_forbidden}
+  - {route: /elementor/v1/globals, status: 401, code: rest_forbidden}
+  - {route: /wp-site-health/v1/tests/background-updates, status: 401, code: rest_forbidden}
+  - {route: /contact-form-7/v1/contact-forms, status: 403, code: wpcf7_forbidden}
+  writes_denied: >-
+    Every POST/PUT/PATCH/DELETE endpoint in the route index is capability-gated. No write was
+    attempted during this pass; the read-side 401s above are the evidence that anonymous callers
+    hold no capabilities.
+rate_limiting:
+  documented: false
+  observed_headers: []
+  note: >-
+    No RateLimit, X-RateLimit-* or Retry-After headers were observed on any anonymous response.
+    The site is fronted by WP Engine (nginx) and its robots.txt requests a 10-second crawl delay,
+    which is the only throttling signal the provider publishes.
+x-evidence:
+  fetched: '2026-08-07'
+  url: https://bluejaytx.com/wp-json/
+  http_status: 200
+  content_type: application/json

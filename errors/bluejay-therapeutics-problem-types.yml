@@ -1,0 +1,133 @@
+generated: '2026-08-07'
+method: probed
+source: live anonymous calls against https://bluejaytx.com/wp-json/
+format: wordpress-rest-error
+rfc9457: false
+envelope:
+  media_type: application/json
+  note: >-
+    NOT RFC 9457. The API returns application/json, never application/problem+json, and uses the
+    WordPress-specific triple {code, message, data} rather than {type, title, status, detail,
+    instance}. There is no `type` URI, so error classes are identified by the `code` slug alone.
+    The HTTP status is duplicated inside the body at `data.status`; agents should trust the real
+    HTTP status line, which always matched the body during this probe.
+  shape:
+    code: string — machine-readable error slug
+    message: string — human-readable, localised to the site language
+    data.status: integer — HTTP status repeated in the body
+    data.params: object — present on validation failures, maps parameter name to reason
+  example:
+    code: rest_forbidden
+    message: Sorry, you are not allowed to do that.
+    data:
+      status: 401
+problems:
+- code: rest_forbidden
+  status: 401
+  title: Capability check failed
+  detail: >-
+    The generic WordPress denial. Returned anonymously by /wp/v2/settings, the whole aioseo/v1
+    namespace, elementor/v1, wp-site-health/v1, /oembed/1.0/proxy and every wp-abilities/v1 route.
+  remediation: >-
+    Authenticate with a WordPress Application Password issued from wp-admin. Not obtainable by
+    third parties — treat these routes as closed.
+  observed: true
+  evidence: GET https://bluejaytx.com/wp-json/wp/v2/settings
+- code: rest_cannot_view_themes
+  status: 401
+  title: Themes not viewable
+  detail: Anonymous callers cannot list installed themes.
+  observed: true
+  evidence: GET https://bluejaytx.com/wp-json/wp/v2/themes
+- code: rest_cannot_view_plugins
+  status: 401
+  title: Plugins not manageable
+  detail: Anonymous callers cannot enumerate installed plugins.
+  observed: true
+  evidence: GET https://bluejaytx.com/wp-json/wp/v2/plugins
+- code: rest_cannot_view
+  status: 401
+  title: Object not viewable
+  detail: Returned by /wp/v2/menus, /wp/v2/menu-locations and /wp/v2/icons.
+  observed: true
+  evidence: GET https://bluejaytx.com/wp-json/wp/v2/menus
+- code: rest_cannot_manage_widgets
+  status: 401
+  title: Widgets not manageable
+  observed: true
+  evidence: GET https://bluejaytx.com/wp-json/wp/v2/widgets
+- code: rest_block_type_cannot_view
+  status: 401
+  title: Block types not viewable
+  observed: true
+  evidence: GET https://bluejaytx.com/wp-json/wp/v2/block-types
+- code: rest_cannot_manage_templates
+  status: 401
+  title: Templates not accessible
+  observed: true
+  evidence: GET https://bluejaytx.com/wp-json/wp/v2/templates
+- code: rest_cannot_read
+  status: 401
+  title: Font collections not readable
+  observed: true
+  evidence: GET https://bluejaytx.com/wp-json/wp/v2/font-collections
+- code: wpcf7_forbidden
+  status: 403
+  title: Contact forms not accessible
+  detail: >-
+    Contact Form 7 denies anonymous access to its form definitions. Note this is a 403 while the
+    equivalent WordPress denials are 401 — the two plugin families disagree on which status a
+    capability failure should carry, so agents must branch on `code`, not on status alone.
+  observed: true
+  evidence: GET https://bluejaytx.com/wp-json/contact-form-7/v1/contact-forms
+- code: rest_no_route
+  status: 404
+  title: No matching route
+  detail: >-
+    Returned for a path/method pair that is not registered. Note the site returns this for
+    plausible-looking routes inside namespaces that ARE registered (e.g. /monsterinsights/v1/settings,
+    /wpe/cache-plugin/v1/config), so namespace presence in the route index does not imply a route
+    exists at a guessed path — read the index.
+  observed: true
+  evidence: GET https://bluejaytx.com/wp-json/monsterinsights/v1/settings
+- code: rest_post_invalid_id
+  status: 404
+  title: Post not found
+  detail: Returned by getPost/getPage/getMediaItem for an id that does not exist or is not published.
+  remediation: List the collection first and use ids from it, or filter by `slug`.
+  observed: false
+  note: Documented from the upstream WordPress REST contract; not triggered during this probe.
+- code: rest_term_invalid
+  status: 404
+  title: Term not found
+  detail: Returned by getCategory/getTag for an unknown term id.
+  observed: false
+  note: Documented from the upstream WordPress REST contract; not triggered during this probe.
+- code: rest_invalid_param
+  status: 400
+  title: Parameter validation failed
+  detail: >-
+    Returned when a query parameter fails its schema — an out-of-range `per_page`, a bad enum value
+    for `orderby`/`order`/`context`, or a malformed date on `after`/`before`. The offending
+    parameters are enumerated under `data.params`.
+  remediation: Read the argument schemas in the route index; `per_page` is capped at 100.
+  observed: false
+  note: Documented from the argument schemas in the published route index.
+non_errors_worth_knowing:
+- status: 200
+  body: '[]'
+  detail: >-
+    Six registered collections answer 200 with an empty array rather than 404 — comments,
+    portfolio, portfolio_category, portfolio_tag, blocks and navigation. An empty array is a
+    successful response, not an error; do not retry it.
+  affected_operations: [listComments, listPortfolio, listPortfolioCategories, listPortfolioTags, listBlocks, listNavigation]
+- status: 404
+  body: HTML
+  detail: >-
+    Requests to the SITE (not the API) for removed marketing pages — /about/, /science/,
+    /pipeline/, /news/, /contact/, /privacy-policy/ — return the WordPress HTML 404 page, not a
+    JSON error. Only paths under /wp-json/ produce the JSON envelope described here.
+x-evidence:
+  fetched: '2026-08-07'
+  method: live anonymous GETs, one per route
+  base: https://bluejaytx.com/wp-json

@@ -1,0 +1,219 @@
+generated: '2026-08-07'
+method: derived
+source: openapi/bluejay-therapeutics-content-openapi.yml
+verified_against: live anonymous responses on 2026-08-07
+summary: >-
+  The entity graph behind the Bluejay Therapeutics Content API. Six entities carry data, five more
+  are registered but empty. Relationships are expressed two ways in the payload — as integer id
+  fields on the object, and as hypermedia relations in the `_links` block — and both are recorded
+  below. Identifiers are plain auto-increment integers scoped per object type; there are no
+  prefixed ids and no globally unique keys, so an id is only meaningful together with its
+  collection.
+
+identifiers:
+  scheme: integer
+  scope: per-collection
+  detail: >-
+    A bare id such as 579 means nothing on its own; it is a post id in the posts collection and
+    would resolve to something else in media. Always carry the collection alongside the id.
+  observed_ranges:
+    posts: 60–583 across 35 items
+    pages: 606 (single item)
+    media: up to 610 across 99 items
+    categories: 1, 14, 15, 17
+    tags: 16
+  guid_warning: >-
+    Objects also expose `guid.rendered`, which looks like a URL but is a frozen internal
+    identifier pointing at the WP Engine staging host. It is not resolvable and must not be used
+    as a link. Use `link` for permalinks.
+
+entities:
+- name: Post
+  collection: /wp/v2/posts
+  count: 35
+  populated: true
+  description: >-
+    A press release or publication notice. This is the substantive content of the API — 26 in the
+    Press Release category, 8 in Publication, 1 uncategorised, dated 2021-08-12 to 2025-12-08.
+    Carries the full press-release body in `content.rendered` (up to ~15 KB).
+  key_fields: [id, slug, date, modified, title.rendered, content.rendered, excerpt.rendered, link, author, featured_media, categories, tags, status, type]
+- name: Page
+  collection: /wp/v2/pages
+  count: 1
+  populated: true
+  description: >-
+    A static page. Reduced to a single record (id 606, slug `acquisition-home-page-2`, title
+    "New home page") holding the Mirum Pharmaceuticals acquisition notice, served at the site root.
+    The pre-acquisition page tree — about, science, pipeline, news, contact, privacy policy — was
+    deleted and those paths now 404.
+  key_fields: [id, slug, title.rendered, content.rendered, parent, menu_order, link]
+- name: MediaItem
+  collection: /wp/v2/media
+  count: 99
+  populated: true
+  description: >-
+    An uploaded file. Mixes press-release PDFs and conference poster/presentation decks with site
+    imagery, logos and Elementor screenshots. `source_url` is the directly fetchable asset;
+    `media_details.sizes` holds generated image variants.
+  key_fields: [id, slug, source_url, mime_type, media_type, media_details, post, alt_text, caption.rendered]
+- name: Term
+  collections: [/wp/v2/categories, /wp/v2/tags]
+  count: 5
+  populated: true
+  description: >-
+    A taxonomy term. Four categories (Press Release 26, Publication 8, Presentation 0,
+    Uncategorized 1) and one tag (Corporate Presentation, 1). `count` is the number of published
+    posts assigned to the term and is the cheapest way to size the archive without paging it.
+  key_fields: [id, name, slug, taxonomy, count, parent, link]
+- name: PostType
+  collection: /wp/v2/types
+  count: 19
+  populated: true
+  description: >-
+    Registry entry describing a content type and where its collection lives. Beyond WordPress core
+    types this registers a `portfolio` type with its own taxonomies plus seven theme and
+    page-builder types (elementor_library, elementor_snippet, e-floating-buttons, jupiterx-codes,
+    jupiterx-fonts, jupiterx-icons, jupiterx-popups). Reading this first is how a client discovers
+    what else exists.
+  key_fields: [slug, name, rest_base, rest_namespace, hierarchical, taxonomies]
+- name: Taxonomy
+  collection: /wp/v2/taxonomies
+  populated: true
+  description: Registry entry describing a taxonomy and the post types it applies to.
+  key_fields: [slug, name, rest_base, hierarchical, types]
+- name: SearchResult
+  collection: /wp/v2/search
+  populated: true
+  description: >-
+    A projection, not a stored entity — a lightweight {id, title, url, type, subtype} record
+    pointing back at a Post or Term. `title` here is a plain string, unlike the rendered object on
+    the underlying entity.
+  key_fields: [id, title, url, type, subtype]
+- name: Comment
+  collection: /wp/v2/comments
+  count: 0
+  populated: false
+  description: Registered and anonymously readable, but the site carries no comments.
+- name: PortfolioItem
+  collection: /wp/v2/portfolio
+  count: 0
+  populated: false
+  description: Theme-registered custom post type with its own taxonomies; never used.
+- name: PortfolioTerm
+  collections: [/wp/v2/portfolio_category, /wp/v2/portfolio_tag]
+  count: 0
+  populated: false
+  description: Taxonomies registered for PortfolioItem; no terms defined.
+- name: ReusableBlock
+  collection: /wp/v2/blocks
+  count: 0
+  populated: false
+- name: NavigationMenu
+  collection: /wp/v2/navigation
+  count: 0
+  populated: false
+  description: >-
+    Block-theme navigation post type, empty. The classic /wp/v2/menus and /wp/v2/menu-locations
+    collections both return 401, so the site's navigation is not readable by any anonymous route.
+- name: User
+  collection: /wp/v2/users
+  count: 5
+  populated: true
+  excluded: true
+  exclusion_reason: >-
+    Personal data. The collection returns five named author records anonymously. Under the API
+    Evangelist enrichment PII guardrail it is documented as an exposure but is not modelled as an
+    operation and no agent capability is emitted for it. See the personal_data block in
+    conventions/bluejay-therapeutics-conventions.yml. Listed here only so the graph is honest
+    about why Post.author has no modelled target.
+
+relationships:
+- from: Post
+  to: Term
+  type: has_many
+  via: categories
+  link_rel: wp:term
+  detail: Array of category term ids on the post; the inverse is Term.count.
+- from: Post
+  to: Term
+  type: has_many
+  via: tags
+  link_rel: wp:term
+- from: Post
+  to: MediaItem
+  type: has_one
+  via: featured_media
+  link_rel: wp:featuredmedia
+  detail: Integer media id, 0 when no featured image is set.
+- from: Post
+  to: MediaItem
+  type: has_many
+  via: _links.wp:attachment
+  detail: Files uploaded to the post; the inverse of MediaItem.post.
+- from: MediaItem
+  to: Post
+  type: belongs_to
+  via: post
+  detail: Id of the post the file was uploaded to; 0 for library-level uploads.
+- from: Post
+  to: User
+  type: belongs_to
+  via: author
+  link_rel: author
+  target_excluded: true
+  detail: >-
+    The id is retained on the object because it is structural, but the target collection is
+    excluded from this catalogue as personal data. Following the author relation is a consumer
+    choice this repository does not automate.
+- from: Page
+  to: User
+  type: belongs_to
+  via: author
+  target_excluded: true
+- from: Page
+  to: Page
+  type: belongs_to
+  via: parent
+  detail: Self-referential page hierarchy. Currently unused — the one surviving page has parent 0.
+- from: Term
+  to: Term
+  type: belongs_to
+  via: parent
+  detail: Only on hierarchical taxonomies (category). All four categories are top-level.
+- from: Post
+  to: PostType
+  type: belongs_to
+  via: type
+  detail: String slug rather than an id; resolve through /wp/v2/types/{type}.
+- from: Term
+  to: Taxonomy
+  type: belongs_to
+  via: taxonomy
+  detail: String slug; resolve through /wp/v2/taxonomies/{taxonomy}.
+- from: PostType
+  to: Taxonomy
+  type: has_many
+  via: taxonomies
+  detail: Array of taxonomy slugs applicable to the type.
+- from: SearchResult
+  to: Post
+  type: references
+  via: id + subtype
+  detail: Resolve by fetching the collection named by `subtype` at the given id.
+- from: PortfolioItem
+  to: PortfolioTerm
+  type: has_many
+  via: portfolio_category, portfolio_tag
+  populated: false
+
+traversal_notes:
+  preferred: >-
+    Follow `_links` rather than building URLs. Every object carries `self` and `collection`, and
+    the `curies` entry expands the `wp:` prefix to https://api.w.org/{rel}.
+  cheapest_full_read: >-
+    GET /wp/v2/posts?per_page=100&_fields=id,slug,date,title,link,categories returns the entire
+    35-item archive index in one request. Add `content` only when the body is actually needed —
+    it is the dominant cost in the payload.
+  embedding: >-
+    `?_embed` inlines author, featured media and terms, collapsing the graph into one response.
+    Note this pulls author records — personal data — into the payload.

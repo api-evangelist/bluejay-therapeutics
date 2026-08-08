@@ -1,0 +1,148 @@
+generated: '2026-08-07'
+method: probed
+source: live probes of bluejaytx.com + the provider's own press-release archive
+api: openapi/bluejay-therapeutics-content-openapi.yml
+
+corporate_status:
+  state: acquired
+  acquirer: Mirum Pharmaceuticals, Inc.
+  agreement_announced: '2025-12-08'
+  completed: '2026-01-26'
+  evidence:
+  - >-
+    Post id 579, "Mirum Pharmaceuticals Enters into Definitive Agreement to Acquire Bluejay
+    Therapeutics, Expanding Global Leadership in Rare Disease", dated 2025-12-08, retrievable at
+    https://bluejaytx.com/wp-json/wp/v2/posts/579
+  - >-
+    Page id 606, served at the site root, dated 2026-01-26: "Mirum Pharmaceuticals Completes
+    Acquisition of Bluejay Therapeutics. For the latest information on brelovitug and to follow
+    Mirum's work in chronic hepatitis delta virus and rare diseases, visit https://mirumpharma.com"
+  successor_site: https://mirumpharma.com/
+  note: >-
+    The company no longer exists as an independent entity. This profile documents a surface that
+    is still live, not an ongoing developer program.
+
+site_teardown:
+  date_observed: '2026-08-07'
+  description: >-
+    The corporate site was collapsed to a single page when the acquisition closed. What is
+    interesting for this catalogue is that the teardown was PARTIAL and asymmetric — the marketing
+    navigation was deleted while both the HTML post archive and the REST API were left fully
+    intact. The API is now a strictly richer record of the company than the site it belongs to.
+  removed:
+  - {path: /about/, status: 404}
+  - {path: /science/, status: 404}
+  - {path: /pipeline/, status: 404}
+  - {path: /news/, status: 404}
+  - {path: /contact/, status: 404}
+  - {path: /privacy-policy/, status: 404}
+  surviving:
+  - {path: /, status: 200, note: single acquisition-notice page}
+  - {path: /wp-json/, status: 200, note: full REST route index, 372 routes}
+  - {path: /wp-json/wp/v2/posts, status: 200, note: all 35 press releases with full bodies}
+  - {path: /wp-json/wp/v2/media, status: 200, note: 99-item media library incl. press-release PDFs}
+  - {path: /category/press-releases/, status: 200, note: HTML category archive still browsable}
+  - {path: /category/publication/, status: 200}
+  - {path: /feed/, status: 200, note: RSS feed still serving 10 most recent items}
+  - {path: /sitemap.xml, status: 200, note: sitemap index still generated, lists all 35 posts}
+  - {path: /post-sitemap.xml, status: 200, note: 35 URLs}
+  individual_permalinks: >-
+    Verified still resolving — e.g. the December 2025 acquisition release returns 200 at its
+    original slug. The archive was not redirected to the acquirer; it was simply left in place.
+
+versioning:
+  scheme: uri-path-namespace
+  current: wp/v2
+  docs: https://developer.wordpress.org/rest-api/
+  provider_policy: none
+  detail: >-
+    Versioning is inherited from WordPress core and its plugins. Bluejay Therapeutics never
+    published a versioning policy of its own, and with the company absorbed there is no party
+    maintaining one.
+
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  detail: >-
+    No deprecation policy, no RFC 8594 Sunset header, no Deprecation header, and no announced end
+    of life for this surface. This is the material lifecycle risk for any consumer: the surface
+    belongs to a company that has been fully absorbed, its content is frozen (newest post
+    2025-12-08, newest page 2026-01-26), and it can be switched off or redirected to the acquirer
+    at any time with no notice mechanism in place. No `Deprecation` pointer is emitted — there is
+    no policy to point at.
+
+status_page:
+  url: null
+  published: false
+  detail: >-
+    No status page. status.bluejaytx.com does not resolve, and no status or uptime page is linked
+    anywhere on the site. No `StatusPage` pointer is emitted.
+
+sla:
+  url: null
+  published: false
+  uptime_target: null
+
+support:
+  channel: null
+  detail: >-
+    No support channel for this surface, and none for the company either — the /contact/ page was
+    removed in the teardown and the Contact Form 7 API returns 403 to anonymous callers. Any
+    enquiry now belongs to the acquirer at https://mirumpharma.com/. No `Support` pointer is
+    emitted.
+
+changelog:
+  url: null
+  published: false
+  detail: >-
+    No API changelog. The provider's press-release archive is dated and chronological but it
+    documents clinical and corporate milestones, not API changes, so it is catalogued as Blog/
+    BlogRSS rather than as a ChangeLog. No `ChangeLog` pointer is emitted.
+
+content_freshness:
+  newest_post: '2025-12-08'
+  oldest_post: '2021-08-12'
+  post_count: 35
+  newest_page_modified: '2026-01-26'
+  newest_media: '2026-01-26'
+  assessment: >-
+    Frozen. Nothing has been published through this API in the eight months since the acquisition
+    closed. Treat the dataset as a closed historical archive.
+
+infrastructure:
+  host: WP Engine (nginx)
+  cms: WordPress
+  notable_plugins_registered:
+  - All in One SEO (aioseo/v1)
+  - Elementor / Elementor Pro / Elementor AI
+  - Contact Form 7
+  - MonsterInsights
+  - Jupiter X theme (jupiterx-license)
+  - OptinMonster (omapp/v1)
+  - Code Snippets
+  - WP Engine cache + sign-on plugins
+  - WordPress Abilities API (wp-abilities/v1)
+  observation: >-
+    The plugin surface is still fully registered and, by implication, still being updated by
+    someone. A wound-down site running Elementor, Contact Form 7 and an SEO suite is a maintenance
+    obligation nobody has formally taken ownership of; it is also why the wp-abilities/v1 agent
+    registry appeared here at all.
+
+x-evidence:
+  fetched: '2026-08-07'
+  probes:
+  - {url: 'https://bluejaytx.com/', status: 200}
+  - {url: 'https://bluejaytx.com/about/', status: 404}
+  - {url: 'https://bluejaytx.com/science/', status: 404}
+  - {url: 'https://bluejaytx.com/pipeline/', status: 404}
+  - {url: 'https://bluejaytx.com/news/', status: 404}
+  - {url: 'https://bluejaytx.com/contact/', status: 404}
+  - {url: 'https://bluejaytx.com/privacy-policy/', status: 404}
+  - {url: 'https://bluejaytx.com/category/press-releases/', status: 200}
+  - {url: 'https://bluejaytx.com/wp-json/wp/v2/posts?per_page=100', status: 200}
+  - {url: 'https://bluejaytx.com/wp-json/wp/v2/pages', status: 200}
+  - {url: 'https://bluejaytx.com/post-sitemap.xml', status: 200}
+  - {url: 'https://status.bluejaytx.com/', status: 0, note: 'DNS does not resolve'}

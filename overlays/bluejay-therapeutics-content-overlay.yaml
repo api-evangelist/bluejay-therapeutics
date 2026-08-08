@@ -1,0 +1,141 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Bluejay Therapeutics Content API
+  version: 1.0.0
+  x-generated: '2026-08-07'
+  x-method: generated
+  x-source: >-
+    Enhancements applied by the API Evangelist enrichment pipeline on top of the OpenAPI derived
+    from the WordPress route index at https://bluejaytx.com/wp-json/. The provider publishes no
+    OpenAPI of its own, so there is no upstream document to preserve unmodified; this overlay
+    records what API Evangelist added on top of the mechanical derivation, so the two remain
+    separable on re-runs.
+extends: openapi/bluejay-therapeutics-content-openapi.yml
+actions:
+- target: $.info
+  description: >-
+    Provenance and posture. Marks the document as derived-and-verified rather than provider-issued,
+    and records that this surface belongs to an acquired company.
+  update:
+    x-apievangelist-provenance: derived-from-route-index
+    x-apievangelist-verified: '2026-08-07'
+    x-apievangelist-verification: >-
+      Each of the 26 operations was individually called anonymously and returned 200 before being
+      modelled. Routes returning 401/403/404 were excluded rather than documented optimistically.
+    x-apievangelist-provider-publishes-spec: false
+    x-apievangelist-corporate-status: >-
+      Acquired by Mirum Pharmaceuticals, completed 2026-01-26. Content frozen; no announced end of
+      life for this surface.
+    x-apievangelist-surface-class: incidental-cms
+    x-apievangelist-surface-note: >-
+      This is a CMS content surface, not a product API. Bluejay Therapeutics never marketed a
+      developer program. It is catalogued because it is real, public, machine-readable and — after
+      the site teardown — the most complete public record of the company that remains.
+
+- target: $.info
+  description: Coverage accounting — what was deliberately left out and why.
+  update:
+    x-apievangelist-coverage:
+      routes_in_index: 372
+      namespaces_in_index: 17
+      operations_modelled: 26
+      excluded_401: >-
+        settings, themes, plugins, menus, menu-locations, widgets, block-types, templates,
+        font-collections, icons, oembed proxy, all aioseo/v1, all elementor/v1, all
+        wp-site-health/v1, all wp-abilities/v1
+      excluded_403: contact-form-7 contact-forms
+      excluded_write_methods: >-
+        Every POST/PUT/PATCH/DELETE endpoint in the index is capability-gated and unreachable
+        anonymously; none is modelled.
+      excluded_pii:
+        collection: /wp/v2/users
+        status: 200
+        reason: >-
+          Returns five named author records anonymously. Excluded under the API Evangelist
+          enrichment PII guardrail — documented as an exposure in conventions/, never packaged as
+          a capability.
+
+- target: $.info
+  description: >-
+    Global query parameters the WordPress controller honours but the route index does not declare,
+    so any spec generated purely from the index would miss them.
+  update:
+    x-apievangelist-undeclared-parameters:
+    - name: _fields
+      effect: Comma-separated sparse fieldset; trims the response to named fields.
+      why_it_matters: >-
+        Full post objects run to ~15 KB because content.rendered carries the entire press release.
+        _fields is the single highest-leverage optimisation on this API.
+    - name: _embed
+      effect: Inlines author, featured media and terms into an _embedded block.
+      caution: Pulls author records — personal data — into the payload.
+
+- target: $.servers[0]
+  description: Runtime posture of the single production server.
+  update:
+    x-apievangelist-runtime:
+      tls: TLSv1.3
+      hsts: false
+      dnssec: true
+      caa: false
+      dmarc: false
+      host: WP Engine (nginx)
+      cors: 'Access-Control-Allow-Headers: Authorization, X-WP-Nonce, Content-Type'
+      rate_limit_headers: none observed
+      advisory_throttle: 'robots.txt Crawl-delay: 10'
+
+- target: $.paths['/wp/v2/posts'].get
+  description: >-
+    Flag the archive-index recipe on the operation that matters most, and record the observed size
+    of the collection.
+  update:
+    x-apievangelist-dataset:
+      items: 35
+      date_range: '2021-08-12 to 2025-12-08'
+      composition: '26 press releases, 8 publications, 1 uncategorised'
+      frozen: true
+      frozen_since: '2025-12-08'
+    x-apievangelist-recipe: >-
+      GET /wp/v2/posts?per_page=100&_fields=id,slug,date,title,link,categories returns the whole
+      archive index in a single request. Fetch content only for the items you actually need.
+
+- target: $.paths['/wp/v2/pages'].get
+  description: Record why this collection is nearly empty, so the count is not read as a fetch failure.
+  update:
+    x-apievangelist-dataset:
+      items: 1
+      note: >-
+        Collapsed to a single acquisition-notice page (id 606) when the Mirum Pharmaceuticals
+        acquisition closed on 2026-01-26. The prior page tree was deleted and those paths now 404.
+
+- target: $.paths['/wp/v2/media'].get
+  update:
+    x-apievangelist-dataset:
+      items: 99
+      note: >-
+        Mixes press-release PDFs and conference poster/presentation decks with site chrome. Filter
+        with mime_type=application/pdf to isolate the substantive documents.
+
+- target: $.components.schemas.Error
+  description: State plainly that this is not RFC 9457, so an agent does not assume problem+json.
+  update:
+    x-apievangelist-error-format: wordpress-rest-error
+    x-apievangelist-rfc9457: false
+    x-apievangelist-note: >-
+      Capability failures are inconsistent across plugin families — WordPress core returns 401,
+      Contact Form 7 returns 403 for the equivalent denial. Branch on `code`, not on status.
+    x-apievangelist-catalog: errors/bluejay-therapeutics-problem-types.yml
+
+- target: $.components.schemas.Post.properties.guid
+  description: Warn that guid is not a resolvable URL and leaks the staging hostname.
+  update:
+    x-apievangelist-warning: >-
+      guid.rendered is a frozen internal identifier of the form
+      https://bluejaytxstg.wpenginepowered.com/?p={id}, pointing at the WP Engine STAGING host. It
+      is not resolvable and must never be used as a link. Use `link` for the permalink.
+
+- target: $.components.schemas.HalLinks
+  update:
+    x-apievangelist-traversal: >-
+      Preferred navigation mechanism. Follow _links rather than building URLs; the curies entry
+      expands the wp: prefix to https://api.w.org/{rel}.

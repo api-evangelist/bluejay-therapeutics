@@ -1,0 +1,187 @@
+generated: '2026-08-07'
+method: probed
+source: https://bluejaytx.com/wp-json/ + live anonymous responses
+api: openapi/bluejay-therapeutics-content-openapi.yml
+upstream_contract: https://developer.wordpress.org/rest-api/
+summary: >-
+  Cross-cutting request/response semantics for the Bluejay Therapeutics Content API. Every
+  convention below was observed on live anonymous calls on 2026-08-07, or read from the argument
+  schemas the site itself publishes in its route index. The API inherits the WordPress REST
+  contract wholesale — Bluejay Therapeutics authored none of it and documents none of it.
+
+authentication:
+  style: none for reads
+  detail: >-
+    All 26 modelled operations are public reads requiring no credential. Writes and administration
+    are gated by WordPress capability checks and reachable only with an Application Password
+    issued from wp-admin. See authentication/bluejay-therapeutics-authentication.yml.
+
+idempotency:
+  supported: false
+  header: null
+  detail: >-
+    No idempotency key, header or parameter is offered or documented. The public surface is
+    read-only and every modelled operation is a GET, which is idempotent by HTTP method rather
+    than by any provider contract. No `Idempotency` pointer is emitted for this provider — there
+    is no idempotency contract to point at.
+
+pagination:
+  style: page-number
+  parameters:
+    page: 1-based page index, default 1
+    per_page: items per page, default 10, maximum 100
+    offset: alternative absolute offset; overrides `page` when supplied
+  response_headers:
+    X-WP-Total: total number of items matching the query
+    X-WP-TotalPages: total number of pages available
+  hypermedia: >-
+    Collection responses also carry `next` and `prev` links inside each item's `_links` block, so
+    the collection can be walked either by incrementing `page` or by following links.
+  observed:
+    - {operation: listPosts, x_wp_total: 35, x_wp_totalpages: 4}
+    - {operation: listMedia, x_wp_total: 99, x_wp_totalpages: 10}
+    - {operation: listPages, x_wp_total: 1, x_wp_totalpages: 1}
+    - {operation: search, x_wp_total: 31, x_wp_totalpages: 4}
+  gotcha: >-
+    A `per_page` above 100 is rejected with 400 rest_invalid_param rather than silently clamped.
+
+sparse_fieldsets:
+  supported: true
+  parameter: _fields
+  detail: >-
+    A comma-separated `_fields` list trims the response to the named fields, e.g.
+    `?_fields=id,slug,title,link`. It is honoured globally by the WordPress REST controller but is
+    NOT declared in the route index argument schemas, so it will not appear in any spec generated
+    purely from that index. Strongly recommended here: full post objects run to ~15 KB each
+    because `content.rendered` carries the entire press release.
+
+field_expansion:
+  supported: true
+  parameter: _embed
+  detail: >-
+    `?_embed` inlines linked resources — author, featured media, terms — into an `_embedded` block
+    on each item, saving a request per relationship. Like `_fields` it is a global controller
+    feature absent from the route index.
+
+context_projection:
+  parameter: context
+  values: [view, embed, edit]
+  default: view
+  detail: >-
+    `context` selects the field projection rather than filtering rows. `embed` returns a minimal
+    object suitable for cards; `edit` requires authentication and returns 401 anonymously.
+
+hypermedia:
+  style: HAL-like
+  field: _links
+  detail: >-
+    Every object carries a `_links` block with `self`, `collection`, `about`, `author`,
+    `wp:featuredmedia`, `wp:attachment`, `wp:term` and `curies`. The `curies` entry defines the
+    `wp:` prefix, expanding to https://api.w.org/{rel}. This is the intended traversal mechanism
+    and is more reliable than string-building URLs.
+
+metadata:
+  fields:
+    meta: WordPress post meta projected into REST; empty on this site
+    acf: Advanced Custom Fields payload; present but empty on every object observed
+    aioseo_notices: All in One SEO plugin field projected into post responses
+    class_list: CSS class hints emitted by the theme
+  detail: >-
+    Three plugin namespaces leak fields into the core post projection. They are inert here but
+    they are part of the response shape a parser must tolerate.
+
+versioning:
+  scheme: uri-path-namespace
+  current: wp/v2
+  detail: >-
+    The version lives in the namespace segment, e.g. /wp-json/wp/v2/posts. Seventeen namespaces
+    are registered; wp/v2 is the only one with a public read surface. Versioning is set by
+    WordPress core and its plugins, not by Bluejay Therapeutics — the provider has no versioning
+    policy of its own and publishes no deprecation notice, changelog or sunset header.
+  no_version_header: true
+
+error_envelope:
+  media_type: application/json
+  shape: {code, message, data.status}
+  rfc9457: false
+  detail: See errors/bluejay-therapeutics-problem-types.yml for the full catalogue.
+  gotcha: >-
+    Capability failures are not consistent across plugin families — WordPress core returns 401,
+    Contact Form 7 returns 403 for the equivalent denial. Branch on `code`, not on status.
+
+rate_limiting:
+  documented: false
+  headers_observed: []
+  detail: >-
+    No RateLimit or Retry-After headers were seen on any anonymous response. The only throttling
+    signal the provider publishes is `Crawl-delay: 10` in robots.txt, which is advisory and
+    applies to crawlers rather than API clients. Consumers should self-throttle.
+
+request_tracing:
+  request_id_header: none
+  detail: No correlation or request-id header is returned. The origin identifies as nginx (WP Engine).
+
+caching:
+  detail: >-
+    Responses are served through the WP Engine edge. Conditional requests are the practical
+    freshness mechanism; no cache-policy is documented by the provider.
+
+content_format:
+  detail: >-
+    `content.rendered` is HTML, not markdown or plain text. Newer posts are Elementor-authored and
+    arrive wrapped in `div[data-elementor-type="wp-post"]` scaffolding around the prose; older
+    posts render as clean `wp-block-*` markup. A consumer extracting press-release text must strip
+    both. `title.rendered` and `excerpt.rendered` carry HTML entity escaping.
+
+data_residency_notes:
+  staging_host_leak:
+    detail: >-
+      The `guid.rendered` field on posts and pages returns internal identifiers of the form
+      https://bluejaytxstg.wpenginepowered.com/?p={id} — the WP Engine STAGING host, not the
+      production domain. This is a WordPress default (guid is frozen at creation time and is an
+      identifier, not a URL), but it does disclose the staging hostname to every anonymous caller.
+      Use the `link` field for the real permalink; never resolve `guid`.
+
+personal_data:
+  exposure:
+    endpoint: /wp/v2/users
+    status: 200
+    anonymous: true
+    count: 5
+    detail: >-
+      The users collection returns 200 anonymously and discloses five author records — display
+      name, slug, author-archive URL, description, gravatar URLs and, for one record, an external
+      agency website. The records correspond to the site administrator account and to outside
+      investor-relations and communications agency staff. No individual is named in this repository.
+    assessment: >-
+      This is the WordPress default for a site with published posts and is not a Bluejay
+      Therapeutics decision, but it is a live anonymous personal-data endpoint on a company that no
+      longer exists as an independent entity, which means nobody is now watching it. It is recorded
+      here as an exposure, not packaged as a capability.
+    handling: >-
+      Under the API Evangelist enrichment PII guardrail the collection is DELIBERATELY EXCLUDED
+      from openapi/bluejay-therapeutics-content-openapi.yml, from skills/, and from any MCP tool
+      list. The exclusion is deliberate and is recorded in skills/_index.yml so the omission reads
+      as a decision rather than an oversight.
+  author_field: >-
+    Post and page objects still carry an integer `author` id, and the `_links.author` relation
+    points at the excluded collection. The id is retained because it is structural; following that
+    link is a consumer choice this repository does not automate.
+
+agent_surface:
+  wp_abilities:
+    namespace: wp-abilities/v1
+    registered: true
+    anonymous_status: 401
+    detail: >-
+      The site registers the WordPress Abilities API — an agent-facing capability registry with
+      /abilities, /abilities/{name}, /abilities/{name}/run and /categories routes. Every one of
+      them returns 401 rest_forbidden to an anonymous caller, so no agent capability is exposed and
+      none is claimed. Worth re-probing if the site's plugin configuration ever changes.
+
+cross_links:
+  errors: errors/bluejay-therapeutics-problem-types.yml
+  authentication: authentication/bluejay-therapeutics-authentication.yml
+  lifecycle: lifecycle/bluejay-therapeutics-lifecycle.yml
+  data_model: data-model/bluejay-therapeutics-data-model.yml
+  conformance: conformance/bluejay-therapeutics-conformance.yml
