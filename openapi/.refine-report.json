@@ -1,0 +1,32 @@
+{
+  "provider": "bluejay-therapeutics",
+  "sources": [
+    "bluejay-therapeutics-content-api-openapi.yml",
+    "bluejay-therapeutics-discovery-api-openapi.yml",
+    "bluejay-therapeutics-embed-api-openapi.yml",
+    "bluejay-therapeutics-empty-collections-api-openapi.yml",
+    "bluejay-therapeutics-media-api-openapi.yml",
+    "bluejay-therapeutics-taxonomy-api-openapi.yml"
+  ],
+  "outputs": [
+    "bluejay-therapeutics-content-api-openapi.yml",
+    "bluejay-therapeutics-discovery-api-openapi.yml",
+    "bluejay-therapeutics-embed-api-openapi.yml",
+    "bluejay-therapeutics-empty-collections-api-openapi.yml",
+    "bluejay-therapeutics-media-api-openapi.yml",
+    "bluejay-therapeutics-taxonomy-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "bluejay-therapeutics-content-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "bluejay-therapeutics-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "bluejay-therapeutics-embed-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "bluejay-therapeutics-empty-collections-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "bluejay-therapeutics-media-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "bluejay-therapeutics-taxonomy-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

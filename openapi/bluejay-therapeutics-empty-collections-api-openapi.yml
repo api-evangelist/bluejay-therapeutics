@@ -1,0 +1,197 @@
+openapi: 3.2.0
+info:
+  title: Bluejay Therapeutics Content Empty Collections API
+  version: '1.0'
+  x-generated: '2026-08-07'
+  x-method: derived
+  x-source: https://bluejaytx.com/wp-json/
+  description: 'The anonymously readable WordPress REST API behind bluejaytx.com, the corporate site of Bluejay Therapeutics — a Redwood City, California clinical-stage biopharmaceutical company developing brelovitug (BJT-778) and a hepatitis B/D portfolio, acquired by Mirum Pharmaceuticals on 26 January 2026.
+
+
+    This is not a developer product Bluejay Therapeutics markets. It is the site''s own WordPress content surface, registered at /wp-json/ and verified to return data without credentials on 2026-08-07. This document is DERIVED by the API Evangelist enrichment pipeline from the route index the site itself publishes at https://bluejaytx.com/wp-json/ — 372 routes across 17 namespaces (oembed/1.0, wpe/cache-plugin/v1, wpe_sign_on_plugin/v1, aioseo/v1, code-snippets/v1, contact-form-7/v1, jupiterx-license, elementor/v1, monsterinsights/v1, elementor/v1/documents, elementor-ai/v1, elementor-pro/v1, omapp/v1, wp/v2, wp-site-health/v1, wp-block-editor/v1, wp-abilities/v1). Only the 26 operations that were individually called and returned data anonymously are modelled here; every other route returned 401, 403 or 404 and is deliberately absent.
+
+
+    WHAT A CONSUMER MUST KNOW. First, the human web site no longer exists. Following the acquisition the page tree was collapsed to a SINGLE page (id 606, "New home page", served at the site root) carrying a two-sentence acquisition notice that redirects readers to mirumpharma.com; /about/, /science/, /pipeline/, /news/, /contact/ and /privacy-policy/ all return 404. The machine-readable surface, however, survived the teardown intact: the REST API still serves all 35 press releases and publication notices from 2021-08-12 through 2025-12-08 with FULL `content.rendered` bodies (up to ~15 KB of press-release prose each), plus the 99-item media library. For this company the API is now a strictly richer record of the corporate history than the web site it belongs to.
+
+
+    Second, the content is Elementor-authored, so `content.rendered` on newer posts is wrapped in `div[data-elementor-type]` scaffolding around the prose; older posts render as clean `wp-block-*` markup. Third, the `pages` collection holds exactly one item and the `portfolio`, `portfolio_category`, `portfolio_tag`, `blocks` and `navigation` collections are registered but return empty arrays — they are modelled here because they answer 200 anonymously, not because they carry data.
+
+
+    OMITTED ON PURPOSE. `/wp/v2/users` returns 200 anonymously with five named individuals (site administrator plus outside investor-relations and communications agency staff). Under the API Evangelist enrichment PII guardrail that collection is documented as an exposure but is NOT modelled as an operation here, and no agent skill or MCP tool is emitted for it. The exposure itself is recorded in conventions/bluejay-therapeutics-conventions.yml. The site also registers the WordPress Abilities API (`wp-abilities/v1`), an agent-facing capability registry, but every endpoint under it returns 401 rest_forbidden anonymously, so no agent surface is claimed.'
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+    url: https://apievangelist.com
+  x-upstream-contract: https://developer.wordpress.org/rest-api/
+servers:
+- url: https://bluejaytx.com/wp-json
+  description: Production WordPress REST API for bluejaytx.com (WP Engine, nginx)
+tags:
+- name: empty-collections
+  description: Registered collections that answer 200 anonymously but currently hold no items.
+paths:
+  /wp/v2/comments:
+    get:
+      operationId: listComments
+      tags:
+      - empty-collections
+      summary: List approved comments
+      description: Registered and anonymously readable, but the site carries no comments — the collection returns an empty array with X-WP-Total 0.
+      parameters:
+      - $ref: '#/components/parameters/Context'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - $ref: '#/components/parameters/Search'
+      - name: post
+        in: query
+        description: Limit to comments on the given post ids.
+        schema:
+          type: array
+          items:
+            type: integer
+      responses:
+        '200':
+          description: A page of comments (currently always empty).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /wp/v2/portfolio:
+    get:
+      operationId: listPortfolio
+      tags:
+      - empty-collections
+      summary: List portfolio items
+      description: A theme-registered custom post type. Anonymously readable but empty — X-WP-Total 0.
+      parameters:
+      - $ref: '#/components/parameters/Context'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - $ref: '#/components/parameters/Search'
+      responses:
+        '200':
+          description: A page of portfolio items (currently always empty).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /wp/v2/portfolio_category:
+    get:
+      operationId: listPortfolioCategories
+      tags:
+      - empty-collections
+      summary: List portfolio categories
+      description: Registered taxonomy with no terms — returns an empty array.
+      parameters:
+      - $ref: '#/components/parameters/Context'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A page of portfolio category terms (currently always empty).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /wp/v2/portfolio_tag:
+    get:
+      operationId: listPortfolioTags
+      tags:
+      - empty-collections
+      summary: List portfolio tags
+      description: Registered taxonomy with no terms — returns an empty array.
+      parameters:
+      - $ref: '#/components/parameters/Context'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A page of portfolio tag terms (currently always empty).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /wp/v2/blocks:
+    get:
+      operationId: listBlocks
+      tags:
+      - empty-collections
+      summary: List reusable blocks
+      description: Registered but empty — the site defines no reusable blocks.
+      parameters:
+      - $ref: '#/components/parameters/Context'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A page of reusable blocks (currently always empty).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /wp/v2/navigation:
+    get:
+      operationId: listNavigation
+      tags:
+      - empty-collections
+      summary: List navigation menus
+      description: The block-theme navigation post type. Registered and anonymously readable but empty; the classic `menus` and `menu-locations` collections both return 401.
+      parameters:
+      - $ref: '#/components/parameters/Context'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A page of navigation menus (currently always empty).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+components:
+  parameters:
+    PerPage:
+      name: per_page
+      in: query
+      description: Maximum number of items to be returned in the result set.
+      schema:
+        type: integer
+        default: 10
+        minimum: 1
+        maximum: 100
+    Search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      schema:
+        type: string
+    Context:
+      name: context
+      in: query
+      description: Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication.
+      schema:
+        type: string
+        enum:
+        - view
+        - embed
+        - edit
+        default: view
+    Page:
+      name: page
+      in: query
+      description: Current page of the collection.
+      schema:
+        type: integer
+        default: 1
+        minimum: 1

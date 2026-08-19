@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bluejay Therapeutics Content Embed API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "embed",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the oEmbed representation of a URL on this site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/oembed/1.0/embed",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "The URL of the post or page to embed."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format."
+              },
+              {
+                "name": "maxwidth",
+                "value": "",
+                "type": "query",
+                "description": "Maximum embed width in pixels."
+              }
+            ]
+          },
+          "docs": "The oEmbed 1.0 provider endpoint. Returns provider name, author, title, thumbnail and the iframe embed HTML for any bluejaytx.com URL. Note the sibling `/oembed/1.0/proxy` endpoint returns 401 rest_forbidden anonymously."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

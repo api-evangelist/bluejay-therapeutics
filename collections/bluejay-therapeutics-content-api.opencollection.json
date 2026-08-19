@@ -1,0 +1,388 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bluejay Therapeutics Content API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "content",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List press releases and publications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/posts",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit to items published after a given ISO 8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit to items published before a given ISO 8601 compliant date."
+              },
+              {
+                "name": "modified_after",
+                "value": "",
+                "type": "query",
+                "description": "Limit to items modified after a given ISO 8601 compliant date."
+              },
+              {
+                "name": "modified_before",
+                "value": "",
+                "type": "query",
+                "description": "Limit to items modified before a given ISO 8601 compliant date."
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Ensure result set excludes specific ids."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to specific ids."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset the result set by a specific number of items."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order sort attribute ascending or descending."
+              },
+              {
+                "name": "orderby",
+                "value": "",
+                "type": "query",
+                "description": "Sort collection by object attribute."
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to items with one or more specific slugs."
+              },
+              {
+                "name": "_fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return, e.g. `id,slug,title,link`. Not declared in the route index but honoured globally by the WordPress REST controller; strongly recommended because full post bodies run to ~15 KB each."
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Limit to posts assigned to the given category term ids."
+              },
+              {
+                "name": "categories_exclude",
+                "value": "",
+                "type": "query",
+                "description": "Exclude posts assigned to the given category term ids."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Limit to posts assigned to the given tag term ids."
+              },
+              {
+                "name": "tags_exclude",
+                "value": "",
+                "type": "query",
+                "description": "Exclude posts assigned to the given tag term ids."
+              },
+              {
+                "name": "sticky",
+                "value": "",
+                "type": "query",
+                "description": "Limit to sticky posts."
+              },
+              {
+                "name": "search_semantics",
+                "value": "",
+                "type": "query",
+                "description": "Set to `exact` to disable fuzzy search behaviour."
+              }
+            ]
+          },
+          "docs": "Returns the site's 35 published posts — 26 in the \"Press Release\" category, 8 in \"Publication\", 1 uncategorised — spanning 2021-08-12 to 2025-12-08. Each item carries a full `content.rendered` body. Paginated; totals are returned in the X-WP-Total and X-WP-TotalPages response headers."
+        },
+        {
+          "info": {
+            "name": "Get a single press release or publication",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/posts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the object."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "excerpt_length",
+                "value": "",
+                "type": "query",
+                "description": "Override the number of words the rendered excerpt is trimmed to."
+              },
+              {
+                "name": "_fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return, e.g. `id,slug,title,link`. Not declared in the route index but honoured globally by the WordPress REST controller; strongly recommended because full post bodies run to ~15 KB each."
+              }
+            ]
+          },
+          "docs": "Get a single press release or publication"
+        },
+        {
+          "info": {
+            "name": "List pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/pages",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit to items published after a given ISO 8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit to items published before a given ISO 8601 compliant date."
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Ensure result set excludes specific ids."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to specific ids."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset the result set by a specific number of items."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order sort attribute ascending or descending."
+              },
+              {
+                "name": "orderby",
+                "value": "",
+                "type": "query",
+                "description": "Sort collection by object attribute."
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to items with one or more specific slugs."
+              },
+              {
+                "name": "_fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return, e.g. `id,slug,title,link`. Not declared in the route index but honoured globally by the WordPress REST controller; strongly recommended because full post bodies run to ~15 KB each."
+              },
+              {
+                "name": "parent",
+                "value": "",
+                "type": "query",
+                "description": "Limit to pages whose parent is one of the given ids."
+              },
+              {
+                "name": "menu_order",
+                "value": "",
+                "type": "query",
+                "description": "Limit to pages with a specific menu_order value."
+              }
+            ]
+          },
+          "docs": "Returns the site's pages. Since the acquisition teardown this collection holds exactly ONE item — id 606, slug `acquisition-home-page-2`, served at the site root — carrying the Mirum Pharmaceuticals acquisition notice."
+        },
+        {
+          "info": {
+            "name": "Get a single page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/pages/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the object."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "_fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return, e.g. `id,slug,title,link`. Not declared in the route index but honoured globally by the WordPress REST controller; strongly recommended because full post bodies run to ~15 KB each."
+              }
+            ]
+          },
+          "docs": "Get a single page"
+        },
+        {
+          "info": {
+            "name": "Search across content types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/search",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The object type to search."
+              },
+              {
+                "name": "subtype",
+                "value": "",
+                "type": "query",
+                "description": "Limit to specific post types or taxonomies; `any` searches all."
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Ensure result set excludes specific ids."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to specific ids."
+              }
+            ]
+          },
+          "docs": "Federated search over posts, terms and post formats, returning lightweight {id, title, url, type, subtype} records rather than full objects. A `search=hepatitis` query returns 31 matches across the archive."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

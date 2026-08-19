@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bluejay Therapeutics Content Discovery API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the WordPress REST route index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/"
+          },
+          "docs": "Returns the site's self-describing discovery document — name, description, home URL, gmt_offset, site icon, the list of registered namespaces, all 372 registered routes with their methods and argument schemas, and the supported authentication mechanisms."
+        },
+        {
+          "info": {
+            "name": "Get the wp/v2 namespace index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              }
+            ]
+          },
+          "docs": "Returns the routes and schemas registered under the wp/v2 namespace only."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

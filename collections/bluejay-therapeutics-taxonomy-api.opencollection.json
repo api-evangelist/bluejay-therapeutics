@@ -1,0 +1,387 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bluejay Therapeutics Content Taxonomy API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "taxonomy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/categories",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Ensure result set excludes specific ids."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to specific ids."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order sort attribute ascending or descending."
+              },
+              {
+                "name": "orderby",
+                "value": "",
+                "type": "query",
+                "description": "Sort terms by attribute."
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to items with one or more specific slugs."
+              },
+              {
+                "name": "_fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return, e.g. `id,slug,title,link`. Not declared in the route index but honoured globally by the WordPress REST controller; strongly recommended because full post bodies run to ~15 KB each."
+              },
+              {
+                "name": "hide_empty",
+                "value": "",
+                "type": "query",
+                "description": "Omit terms with no assigned posts."
+              },
+              {
+                "name": "parent",
+                "value": "",
+                "type": "query",
+                "description": "Limit to direct children of the given term id."
+              },
+              {
+                "name": "post",
+                "value": "",
+                "type": "query",
+                "description": "Limit to terms assigned to the given post id."
+              }
+            ]
+          },
+          "docs": "Returns the four registered categories — Press Release (26 posts), Publication (8), Presentation (0) and Uncategorized (1)."
+        },
+        {
+          "info": {
+            "name": "Get a single category term",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the object."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              }
+            ]
+          },
+          "docs": "Get a single category term"
+        },
+        {
+          "info": {
+            "name": "List tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/tags",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Ensure result set excludes specific ids."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to specific ids."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset the result set by a specific number of items."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order sort attribute ascending or descending."
+              },
+              {
+                "name": "orderby",
+                "value": "",
+                "type": "query",
+                "description": "Sort terms by attribute."
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to items with one or more specific slugs."
+              },
+              {
+                "name": "_fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return, e.g. `id,slug,title,link`. Not declared in the route index but honoured globally by the WordPress REST controller; strongly recommended because full post bodies run to ~15 KB each."
+              },
+              {
+                "name": "hide_empty",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "post",
+                "value": "",
+                "type": "query",
+                "description": "Limit to terms assigned to the given post id."
+              }
+            ]
+          },
+          "docs": "Returns the single registered tag, \"Corporate Presentation\" (1 post)."
+        },
+        {
+          "info": {
+            "name": "Get a single tag term",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/tags/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the object."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              }
+            ]
+          },
+          "docs": "Get a single tag term"
+        },
+        {
+          "info": {
+            "name": "List registered post types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/types",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              }
+            ]
+          },
+          "docs": "Returns the 19 registered post types and their REST bases. Alongside the WordPress core types this exposes the site's theme and page-builder types (`elementor_library`, `elementor_snippet`, `e-floating-buttons`, `jupiterx-codes`, `jupiterx-fonts`, `jupiterx-icons`, `jupiterx-popups`) and a `portfolio` type with its own taxonomies."
+        },
+        {
+          "info": {
+            "name": "Get a single post type definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/types/:type",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "The post type slug, e.g. `post`."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              }
+            ]
+          },
+          "docs": "Get a single post type definition"
+        },
+        {
+          "info": {
+            "name": "List registered taxonomies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/taxonomies",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Limit to taxonomies associated with a given post type."
+              }
+            ]
+          },
+          "docs": "List registered taxonomies"
+        },
+        {
+          "info": {
+            "name": "Get a single taxonomy definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/taxonomies/:taxonomy",
+            "params": [
+              {
+                "name": "taxonomy",
+                "value": "",
+                "type": "path",
+                "description": "The taxonomy slug, e.g. `category`."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              }
+            ]
+          },
+          "docs": "Get a single taxonomy definition"
+        },
+        {
+          "info": {
+            "name": "List publicly queryable post statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/statuses",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              }
+            ]
+          },
+          "docs": "Anonymously this returns two statuses — `publish` and `acf-disabled`."
+        },
+        {
+          "info": {
+            "name": "Get a single post status definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/statuses/:status",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "path",
+                "description": "The status slug, e.g. `publish`."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              }
+            ]
+          },
+          "docs": "Get a single post status definition"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

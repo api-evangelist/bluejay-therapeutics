@@ -1,0 +1,708 @@
+{
+  "item": [
+    {
+      "id": "7f44ff74-722f-44a3-812e-5ad84626e2e3",
+      "name": "empty-collections",
+      "description": {
+        "content": "Registered collections that answer 200 anonymously but currently hold no items.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e15a9961-11fa-4011-b800-ae0afb7e34bc",
+          "name": "List approved comments",
+          "request": {
+            "name": "List approved comments",
+            "description": {
+              "content": "Registered and anonymously readable, but the site carries no comments — the collection returns an empty array with X-WP-Total 0.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in the result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Limit results to those matching a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "post",
+                  "value": "<integer>",
+                  "description": "Limit to comments on the given post ids."
+                },
+                {
+                  "disabled": false,
+                  "key": "post",
+                  "value": "<integer>",
+                  "description": "Limit to comments on the given post ids."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "234e5d37-7e54-4ae7-b96b-bd75fa7c6a5c",
+              "name": "A page of comments (currently always empty).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "post",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "post",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64d40c06-b87d-435f-a27f-eb51953fbe21",
+          "name": "List portfolio items",
+          "request": {
+            "name": "List portfolio items",
+            "description": {
+              "content": "A theme-registered custom post type. Anonymously readable but empty — X-WP-Total 0.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "portfolio"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in the result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Limit results to those matching a string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6ee0ea5a-29aa-4d1d-ac1d-dfacad737127",
+              "name": "A page of portfolio items (currently always empty).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "portfolio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ea7e4d9-2ed2-466f-baa4-97fa0f36b49f",
+          "name": "List portfolio categories",
+          "request": {
+            "name": "List portfolio categories",
+            "description": {
+              "content": "Registered taxonomy with no terms — returns an empty array.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "portfolio_category"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in the result set."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9577c8b4-aece-469e-913e-335386f9c85f",
+              "name": "A page of portfolio category terms (currently always empty).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "portfolio_category"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc9f0280-f90d-4918-875a-bacc2aad2d79",
+          "name": "List portfolio tags",
+          "request": {
+            "name": "List portfolio tags",
+            "description": {
+              "content": "Registered taxonomy with no terms — returns an empty array.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "portfolio_tag"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in the result set."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0dd6ef62-bc0e-47dd-bf33-fd6ac7e8b689",
+              "name": "A page of portfolio tag terms (currently always empty).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "portfolio_tag"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ff1d046-ea86-447b-a77f-87cfb1431d0d",
+          "name": "List reusable blocks",
+          "request": {
+            "name": "List reusable blocks",
+            "description": {
+              "content": "Registered but empty — the site defines no reusable blocks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "blocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in the result set."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21613651-6bd0-4d5a-bdca-37c5a60259c0",
+              "name": "A page of reusable blocks (currently always empty).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f487559-636d-4e60-9c14-e46973372abc",
+          "name": "List navigation menus",
+          "request": {
+            "name": "List navigation menus",
+            "description": {
+              "content": "The block-theme navigation post type. Registered and anonymously readable but empty; the classic `menus` and `menu-locations` collections both return 401.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "navigation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in the result set."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ade33b93-270c-4a03-bfdd-0a369801990e",
+              "name": "A page of navigation menus (currently always empty).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "navigation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bluejaytx.com/wp-json",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d44883d6-f49b-4fb3-a388-26f045e0ec13",
+    "name": "Bluejay Therapeutics Content Empty Collections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The anonymously readable WordPress REST API behind bluejaytx.com, the corporate site of Bluejay Therapeutics — a Redwood City, California clinical-stage biopharmaceutical company developing brelovitug (BJT-778) and a hepatitis B/D portfolio, acquired by Mirum Pharmaceuticals on 26 January 2026.\n\nThis is not a developer product Bluejay Therapeutics markets. It is the site's own WordPress content surface, registered at /wp-json/ and verified to return data without credentials on 2026-08-07. This document is DERIVED by the API Evangelist enrichment pipeline from the route index the site itself publishes at https://bluejaytx.com/wp-json/ — 372 routes across 17 namespaces (oembed/1.0, wpe/cache-plugin/v1, wpe_sign_on_plugin/v1, aioseo/v1, code-snippets/v1, contact-form-7/v1, jupiterx-license, elementor/v1, monsterinsights/v1, elementor/v1/documents, elementor-ai/v1, elementor-pro/v1, omapp/v1, wp/v2, wp-site-health/v1, wp-block-editor/v1, wp-abilities/v1). Only the 26 operations that were individually called and returned data anonymously are modelled here; every other route returned 401, 403 or 404 and is deliberately absent.\n\nWHAT A CONSUMER MUST KNOW. First, the human web site no longer exists. Following the acquisition the page tree was collapsed to a SINGLE page (id 606, \"New home page\", served at the site root) carrying a two-sentence acquisition notice that redirects readers to mirumpharma.com; /about/, /science/, /pipeline/, /news/, /contact/ and /privacy-policy/ all return 404. The machine-readable surface, however, survived the teardown intact: the REST API still serves all 35 press releases and publication notices from 2021-08-12 through 2025-12-08 with FULL `content.rendered` bodies (up to ~15 KB of press-release prose each), plus the 99-item media library. For this company the API is now a strictly richer record of the corporate history than the web site it belongs to.\n\nSecond, the content is Elementor-authored, so `content.rendered` on newer posts is wrapped in `div[data-elementor-type]` scaffolding around the prose; older posts render as clean `wp-block-*` markup. Third, the `pages` collection holds exactly one item and the `portfolio`, `portfolio_category`, `portfolio_tag`, `blocks` and `navigation` collections are registered but return empty arrays — they are modelled here because they answer 200 anonymously, not because they carry data.\n\nOMITTED ON PURPOSE. `/wp/v2/users` returns 200 anonymously with five named individuals (site administrator plus outside investor-relations and communications agency staff). Under the API Evangelist enrichment PII guardrail that collection is documented as an exposure but is NOT modelled as an operation here, and no agent skill or MCP tool is emitted for it. The exposure itself is recorded in conventions/bluejay-therapeutics-conventions.yml. The site also registers the WordPress Abilities API (`wp-abilities/v1`), an agent-facing capability registry, but every endpoint under it returns 401 rest_forbidden anonymously, so no agent surface is claimed.\n\nContact Support:\n Name: API Evangelist\n Email: kin@apievangelist.com",
+      "type": "text/plain"
+    }
+  }
+}

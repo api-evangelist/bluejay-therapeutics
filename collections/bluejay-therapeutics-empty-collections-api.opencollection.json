@@ -1,0 +1,222 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bluejay Therapeutics Content Empty Collections API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "empty-collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List approved comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/comments",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "post",
+                "value": "",
+                "type": "query",
+                "description": "Limit to comments on the given post ids."
+              }
+            ]
+          },
+          "docs": "Registered and anonymously readable, but the site carries no comments — the collection returns an empty array with X-WP-Total 0."
+        },
+        {
+          "info": {
+            "name": "List portfolio items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/portfolio",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              }
+            ]
+          },
+          "docs": "A theme-registered custom post type. Anonymously readable but empty — X-WP-Total 0."
+        },
+        {
+          "info": {
+            "name": "List portfolio categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/portfolio_category",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              }
+            ]
+          },
+          "docs": "Registered taxonomy with no terms — returns an empty array."
+        },
+        {
+          "info": {
+            "name": "List portfolio tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/portfolio_tag",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              }
+            ]
+          },
+          "docs": "Registered taxonomy with no terms — returns an empty array."
+        },
+        {
+          "info": {
+            "name": "List reusable blocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/blocks",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              }
+            ]
+          },
+          "docs": "Registered but empty — the site defines no reusable blocks."
+        },
+        {
+          "info": {
+            "name": "List navigation menus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bluejaytx.com/wp-json/wp/v2/navigation",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in the result set."
+              }
+            ]
+          },
+          "docs": "The block-theme navigation post type. Registered and anonymously readable but empty; the classic `menus` and `menu-locations` collections both return 401."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
