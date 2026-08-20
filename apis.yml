@@ -30,6 +30,17 @@ modified: '2026-08-07'
 tags:
 - Company
 - biopharmaceuticals
+- Pharmaceuticals
+- Life Sciences
+- hepatology
+- Infectious Disease
+- Clinical Trials
+- Drug Development
+- Monoclonal Antibodies
+- content-api
+tags_raw:
+- Company
+- biopharmaceuticals
 - pharmaceuticals
 - life-sciences
 - hepatology
@@ -45,6 +56,8 @@ apis:
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://bluejaytx.com/wp-json
   tags:
+  - Content
+  tags_raw:
   - content
   properties:
   - type: OpenAPI
@@ -65,6 +78,8 @@ apis:
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://bluejaytx.com/wp-json
   tags:
+  - Discovery
+  tags_raw:
   - discovery
   properties:
   - type: OpenAPI
@@ -85,6 +100,8 @@ apis:
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://bluejaytx.com/wp-json
   tags:
+  - Embed
+  tags_raw:
   - embed
   properties:
   - type: OpenAPI
@@ -125,6 +142,8 @@ apis:
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://bluejaytx.com/wp-json
   tags:
+  - Media
+  tags_raw:
   - media
   properties:
   - type: OpenAPI
@@ -145,6 +164,8 @@ apis:
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://bluejaytx.com/wp-json
   tags:
+  - Taxonomy
+  tags_raw:
   - taxonomy
   properties:
   - type: OpenAPI
