@@ -1,5 +1,16 @@
 aid: bluejay-therapeutics
 name: Bluejay Therapeutics
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 image: https://bluejaytx.com/wp-content/uploads/2023/01/BluejayTx_Logo.png
 description: >-
   Bluejay Therapeutics, Inc. was a clinical-stage biopharmaceutical company headquartered in Redwood
