@@ -103,17 +103,28 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    RenderedText:
+    Error:
       type: object
+      description: The WordPress REST error envelope. NOT RFC 9457 — the media type is application/json, not application/problem+json, and the field names are WordPress-specific.
       properties:
-        rendered:
+        code:
           type: string
-        protected:
-          type: boolean
-    HalLinks:
-      type: object
-      description: HAL-style hypermedia block. Carries `self`, `collection`, `about`, `author`, `wp:featuredmedia`, `wp:attachment`, `wp:term`, `curies` and — on collection responses — `next`/`prev` page links. This is how the API is meant to be traversed.
-      additionalProperties: true
+          description: Machine-readable error slug, e.g. `rest_post_invalid_id`, `rest_forbidden`.
+        message:
+          type: string
+          description: Human-readable message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: The HTTP status code, repeated inside the body.
+            params:
+              type: object
+              description: Present on validation errors; maps parameter name to the failure reason.
+      required:
+      - code
+      - message
     MediaItem:
       type: object
       properties:
@@ -158,41 +169,26 @@ components:
           description: Width/height/filesize plus generated `sizes` variants for images.
         _links:
           $ref: '#/components/schemas/HalLinks'
-    Error:
+    RenderedText:
       type: object
-      description: The WordPress REST error envelope. NOT RFC 9457 — the media type is application/json, not application/problem+json, and the field names are WordPress-specific.
       properties:
-        code:
+        rendered:
           type: string
-          description: Machine-readable error slug, e.g. `rest_post_invalid_id`, `rest_forbidden`.
-        message:
-          type: string
-          description: Human-readable message.
-        data:
-          type: object
-          properties:
-            status:
-              type: integer
-              description: The HTTP status code, repeated inside the body.
-            params:
-              type: object
-              description: Present on validation errors; maps parameter name to the failure reason.
-      required:
-      - code
-      - message
+        protected:
+          type: boolean
+    HalLinks:
+      type: object
+      description: HAL-style hypermedia block. Carries `self`, `collection`, `about`, `author`, `wp:featuredmedia`, `wp:attachment`, `wp:term`, `curies` and — on collection responses — `next`/`prev` page links. This is how the API is meant to be traversed.
+      additionalProperties: true
   parameters:
-    Search:
-      name: search
+    SlugFilter:
+      name: slug
       in: query
-      description: Limit results to those matching a string.
+      description: Limit result set to items with one or more specific slugs.
       schema:
-        type: string
-    Fields:
-      name: _fields
-      in: query
-      description: Comma-separated list of fields to return, e.g. `id,slug,title,link`. Not declared in the route index but honoured globally by the WordPress REST controller; strongly recommended because full post bodies run to ~15 KB each.
-      schema:
-        type: string
+        type: array
+        items:
+          type: string
     Include:
       name: include
       in: query
@@ -201,10 +197,18 @@ components:
         type: array
         items:
           type: integer
-    Before:
-      name: before
+    Exclude:
+      name: exclude
       in: query
-      description: Limit to items published before a given ISO 8601 compliant date.
+      description: Ensure result set excludes specific ids.
+      schema:
+        type: array
+        items:
+          type: integer
+    After:
+      name: after
+      in: query
+      description: Limit to items published after a given ISO 8601 compliant date.
       schema:
         type: string
         format: date-time
@@ -217,14 +221,39 @@ components:
         enum:
         - asc
         - desc
-    Exclude:
-      name: exclude
+    Page:
+      name: page
       in: query
-      description: Ensure result set excludes specific ids.
+      description: Current page of the collection.
       schema:
-        type: array
-        items:
-          type: integer
+        type: integer
+        default: 1
+        minimum: 1
+    Before:
+      name: before
+      in: query
+      description: Limit to items published before a given ISO 8601 compliant date.
+      schema:
+        type: string
+        format: date-time
+    Context:
+      name: context
+      in: query
+      description: Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication.
+      schema:
+        type: string
+        enum:
+        - view
+        - embed
+        - edit
+        default: view
+    IdPath:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier for the object.
+      schema:
+        type: integer
     Offset:
       name: offset
       in: query
@@ -232,6 +261,18 @@ components:
       schema:
         type: integer
         minimum: 0
+    Search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      schema:
+        type: string
+    Fields:
+      name: _fields
+      in: query
+      description: Comma-separated list of fields to return, e.g. `id,slug,title,link`. Not declared in the route index but honoured globally by the WordPress REST controller; strongly recommended because full post bodies run to ~15 KB each.
+      schema:
+        type: string
     OrderByPost:
       name: orderby
       in: query
@@ -257,47 +298,6 @@ components:
         default: 10
         minimum: 1
         maximum: 100
-    Context:
-      name: context
-      in: query
-      description: Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication.
-      schema:
-        type: string
-        enum:
-        - view
-        - embed
-        - edit
-        default: view
-    Page:
-      name: page
-      in: query
-      description: Current page of the collection.
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-    After:
-      name: after
-      in: query
-      description: Limit to items published after a given ISO 8601 compliant date.
-      schema:
-        type: string
-        format: date-time
-    SlugFilter:
-      name: slug
-      in: query
-      description: Limit result set to items with one or more specific slugs.
-      schema:
-        type: array
-        items:
-          type: string
-    IdPath:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier for the object.
-      schema:
-        type: integer
   responses:
     NotFound:
       description: No object matched the identifier.

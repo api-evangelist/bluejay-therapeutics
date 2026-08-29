@@ -280,6 +280,110 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    Page:
+      name: page
+      in: query
+      description: Current page of the collection.
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+    OrderByTerm:
+      name: orderby
+      in: query
+      description: Sort terms by attribute.
+      schema:
+        type: string
+        enum:
+        - id
+        - include
+        - name
+        - slug
+        - include_slugs
+        - term_group
+        - description
+        - count
+        default: name
+    Include:
+      name: include
+      in: query
+      description: Limit result set to specific ids.
+      schema:
+        type: array
+        items:
+          type: integer
+    SlugFilter:
+      name: slug
+      in: query
+      description: Limit result set to items with one or more specific slugs.
+      schema:
+        type: array
+        items:
+          type: string
+    Exclude:
+      name: exclude
+      in: query
+      description: Ensure result set excludes specific ids.
+      schema:
+        type: array
+        items:
+          type: integer
+    IdPath:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier for the object.
+      schema:
+        type: integer
+    Offset:
+      name: offset
+      in: query
+      description: Offset the result set by a specific number of items.
+      schema:
+        type: integer
+        minimum: 0
+    PerPage:
+      name: per_page
+      in: query
+      description: Maximum number of items to be returned in the result set.
+      schema:
+        type: integer
+        default: 10
+        minimum: 1
+        maximum: 100
+    Search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      schema:
+        type: string
+    Fields:
+      name: _fields
+      in: query
+      description: Comma-separated list of fields to return, e.g. `id,slug,title,link`. Not declared in the route index but honoured globally by the WordPress REST controller; strongly recommended because full post bodies run to ~15 KB each.
+      schema:
+        type: string
+    Order:
+      name: order
+      in: query
+      description: Order sort attribute ascending or descending.
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+    Context:
+      name: context
+      in: query
+      description: Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication.
+      schema:
+        type: string
+        enum:
+        - view
+        - embed
+        - edit
+        default: view
   schemas:
     Error:
       type: object
@@ -307,27 +411,6 @@ components:
       type: object
       description: HAL-style hypermedia block. Carries `self`, `collection`, `about`, `author`, `wp:featuredmedia`, `wp:attachment`, `wp:term`, `curies` and — on collection responses — `next`/`prev` page links. This is how the API is meant to be traversed.
       additionalProperties: true
-    Taxonomy:
-      type: object
-      properties:
-        name:
-          type: string
-        slug:
-          type: string
-        description:
-          type: string
-        hierarchical:
-          type: boolean
-        rest_base:
-          type: string
-        rest_namespace:
-          type: string
-        types:
-          type: array
-          items:
-            type: string
-        _links:
-          $ref: '#/components/schemas/HalLinks'
     Term:
       type: object
       properties:
@@ -357,6 +440,27 @@ components:
           type: object
         _links:
           $ref: '#/components/schemas/HalLinks'
+    Taxonomy:
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        hierarchical:
+          type: boolean
+        rest_base:
+          type: string
+        rest_namespace:
+          type: string
+        types:
+          type: array
+          items:
+            type: string
+        _links:
+          $ref: '#/components/schemas/HalLinks'
     PostType:
       type: object
       properties:
@@ -383,110 +487,6 @@ components:
             type: string
         _links:
           $ref: '#/components/schemas/HalLinks'
-  parameters:
-    OrderByTerm:
-      name: orderby
-      in: query
-      description: Sort terms by attribute.
-      schema:
-        type: string
-        enum:
-        - id
-        - include
-        - name
-        - slug
-        - include_slugs
-        - term_group
-        - description
-        - count
-        default: name
-    Offset:
-      name: offset
-      in: query
-      description: Offset the result set by a specific number of items.
-      schema:
-        type: integer
-        minimum: 0
-    PerPage:
-      name: per_page
-      in: query
-      description: Maximum number of items to be returned in the result set.
-      schema:
-        type: integer
-        default: 10
-        minimum: 1
-        maximum: 100
-    Exclude:
-      name: exclude
-      in: query
-      description: Ensure result set excludes specific ids.
-      schema:
-        type: array
-        items:
-          type: integer
-    Page:
-      name: page
-      in: query
-      description: Current page of the collection.
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-    Context:
-      name: context
-      in: query
-      description: Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication.
-      schema:
-        type: string
-        enum:
-        - view
-        - embed
-        - edit
-        default: view
-    Search:
-      name: search
-      in: query
-      description: Limit results to those matching a string.
-      schema:
-        type: string
-    Order:
-      name: order
-      in: query
-      description: Order sort attribute ascending or descending.
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-    SlugFilter:
-      name: slug
-      in: query
-      description: Limit result set to items with one or more specific slugs.
-      schema:
-        type: array
-        items:
-          type: string
-    Include:
-      name: include
-      in: query
-      description: Limit result set to specific ids.
-      schema:
-        type: array
-        items:
-          type: integer
-    Fields:
-      name: _fields
-      in: query
-      description: Comma-separated list of fields to return, e.g. `id,slug,title,link`. Not declared in the route index but honoured globally by the WordPress REST controller; strongly recommended because full post bodies run to ~15 KB each.
-      schema:
-        type: string
-    IdPath:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier for the object.
-      schema:
-        type: integer
   responses:
     NotFound:
       description: No object matched the identifier.

@@ -161,6 +161,25 @@ paths:
                   type: object
 components:
   parameters:
+    Page:
+      name: page
+      in: query
+      description: Current page of the collection.
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+    Context:
+      name: context
+      in: query
+      description: Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication.
+      schema:
+        type: string
+        enum:
+        - view
+        - embed
+        - edit
+        default: view
     PerPage:
       name: per_page
       in: query
@@ -176,22 +195,3 @@ components:
       description: Limit results to those matching a string.
       schema:
         type: string
-    Context:
-      name: context
-      in: query
-      description: Scope under which the request is made; determines which fields are present in the response. `edit` requires authentication.
-      schema:
-        type: string
-        enum:
-        - view
-        - embed
-        - edit
-        default: view
-    Page:
-      name: page
-      in: query
-      description: Current page of the collection.
-      schema:
-        type: integer
-        default: 1
-        minimum: 1

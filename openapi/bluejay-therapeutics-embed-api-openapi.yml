@@ -70,7 +70,36 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: No object matched the identifier.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: The WordPress REST error envelope. NOT RFC 9457 — the media type is application/json, not application/problem+json, and the field names are WordPress-specific.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug, e.g. `rest_post_invalid_id`, `rest_forbidden`.
+        message:
+          type: string
+          description: Human-readable message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: The HTTP status code, repeated inside the body.
+            params:
+              type: object
+              description: Present on validation errors; maps parameter name to the failure reason.
+      required:
+      - code
+      - message
     OEmbed:
       type: object
       properties:
@@ -100,32 +129,3 @@ components:
         thumbnail_url:
           type: string
           format: uri
-    Error:
-      type: object
-      description: The WordPress REST error envelope. NOT RFC 9457 — the media type is application/json, not application/problem+json, and the field names are WordPress-specific.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error slug, e.g. `rest_post_invalid_id`, `rest_forbidden`.
-        message:
-          type: string
-          description: Human-readable message.
-        data:
-          type: object
-          properties:
-            status:
-              type: integer
-              description: The HTTP status code, repeated inside the body.
-            params:
-              type: object
-              description: Present on validation errors; maps parameter name to the failure reason.
-      required:
-      - code
-      - message
-  responses:
-    NotFound:
-      description: No object matched the identifier.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
