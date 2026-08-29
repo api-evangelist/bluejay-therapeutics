@@ -1,0 +1,26 @@
+slug: bluejay-therapeutics
+provider: Bluejay Therapeutics
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Pharmaceuticals & Life Sciences
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: content
+  spec_file: bluejay-therapeutics-content-api-openapi.yml
+  capability_id: BC-850
+  capability_id_l1: BC-850
+  capability_name: Corporate Communications Management
+  confidence: 0.7
+  evidence: GET /wp/v2/posts  listPosts  "List press releases and publications"
+  reason: 'The read surface exposes the corporate site''s press releases, publications and pages — the
+    artefacts of external corporate communications. Mapped at L1 only: the evidence spans press releases
+    (media relations) and general corporate pages (external communications), so no single L2 is clearly
+    named. Not a life-sciences capability; it is a WordPress CMS behind a corporate website.'
