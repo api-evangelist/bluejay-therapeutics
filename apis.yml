@@ -11,6 +11,19 @@ deliveryModel:
   - openapi
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  - security
+  generated: '2026-09-02'
+  method: derived
 image: https://bluejaytx.com/wp-content/uploads/2023/01/BluejayTx_Logo.png
 description: >-
   Bluejay Therapeutics, Inc. was a clinical-stage biopharmaceutical company headquartered in Redwood
