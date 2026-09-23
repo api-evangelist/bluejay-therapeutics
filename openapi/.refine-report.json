@@ -1,12 +1,7 @@
 {
   "provider": "bluejay-therapeutics",
   "sources": [
-    "bluejay-therapeutics-content-api-openapi.yml",
-    "bluejay-therapeutics-discovery-api-openapi.yml",
-    "bluejay-therapeutics-embed-api-openapi.yml",
-    "bluejay-therapeutics-empty-collections-api-openapi.yml",
-    "bluejay-therapeutics-media-api-openapi.yml",
-    "bluejay-therapeutics-taxonomy-api-openapi.yml"
+    "_ae-authored/bluejay-therapeutics-content-openapi.yml"
   ],
   "outputs": [
     "bluejay-therapeutics-content-api-openapi.yml",
@@ -20,7 +15,16 @@
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bluejay-therapeutics-content-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "bluejay-therapeutics-content-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluejay-therapeutics-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluejay-therapeutics-embed-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluejay-therapeutics-empty-collections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluejay-therapeutics-media-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluejay-therapeutics-taxonomy-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
