@@ -64,5 +64,108 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Bluejay Therapeutics is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/bluejay-therapeutics_stock/
+Bluejay Therapeutics, Inc. was a clinical-stage biopharmaceutical company headquartered in Redwood City, California, developing treatments for viral hepatitis and liver disease. Its lead asset, brelovitug (BJT-778), is an investigational monoclonal antibody targeting the surface antigen shared by the hepatitis D and hepatitis B viruses; it received U.S. FDA Breakthrough Therapy designation for chronic hepatitis delta and reported a 100% virologic response at week 48 in its Phase 2 monotherapy study before entering the AZURE-2 global Phase 3 trial. The company also advanced a proprietary TLR9 agonist (cavrotolimod), a liver-targeted HBV transcript inhibitor (BJT-628) and a liver-targeted fatty acid synthase inhibitor (BJT-188) toward a combination regimen aimed at functional cure of chronic hepatitis B. Mirum Pharmaceuticals agreed to acquire Bluejay Therapeutics in December 2025 and completed the acquisition on 26 January 2026; the corporate site now serves a single acquisition notice redirecting readers to mirumpharma.com. Bluejay Therapeutics never ran a developer program — no product API, no developer portal, no API documentation, no SDKs, no GitHub organisation and no package-registry presence. The only machine-readable surface reachable without credentials is the WordPress REST content API behind bluejaytx.com, catalogued here. That surface is notable for outliving the web site it belongs to: the marketing page tree was deleted in the teardown, but the REST API and the post archive still serve all 35 press releases and publication notices from 2021 through 2025 with full text.
+
+**Areas:** Company · Biopharmaceutical · Pharmaceuticals · Life Sciences · hepatology · Infectious Disease · Clinical Trials · Drug Development · Monoclonal Antibodies · content-api
+
+## Bluejay Therapeutics on APIs.io
+
+Everything profiled for Bluejay Therapeutics is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bluejay-therapeutics/](https://apis.io/providers/bluejay-therapeutics/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Bluejay Therapeutics Website (WordPress REST)](https://apis.io/apis/bluejay-therapeutics/bluejaytx-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the Bluejay Therapeutics website at bluejaytx.com: the route index of the site's content management system,…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Bluejay Therapeutics Organization Context](https://apis.io/jsonld/bluejay-therapeutics/bluejay-therapeutics-organization/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [Moved to /providers/bluejay-therapeutics/](https://apis.io/collections/bluejay-therapeutics/open-bluejay-therapeutics-content-api/)
+- [Moved to /providers/bluejay-therapeutics/](https://apis.io/collections/bluejay-therapeutics/open-bluejay-therapeutics-discovery-api/)
+- [Moved to /providers/bluejay-therapeutics/](https://apis.io/collections/bluejay-therapeutics/open-bluejay-therapeutics-embed-api/)
+- [Moved to /providers/bluejay-therapeutics/](https://apis.io/collections/bluejay-therapeutics/open-bluejay-therapeutics-empty-collections-api/)
+- [Moved to /providers/bluejay-therapeutics/](https://apis.io/collections/bluejay-therapeutics/open-bluejay-therapeutics-media-api/)
+- [Moved to /providers/bluejay-therapeutics/](https://apis.io/collections/bluejay-therapeutics/open-bluejay-therapeutics-taxonomy-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Bluejay Therapeutics Content Overlay](https://apis.io/overlays/bluejay-therapeutics/bluejay-therapeutics-content-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Bluejay Therapeutics Authentication](https://apis.io/security/bluejay-therapeutics/bluejay-therapeutics-authentication/)
+- [Bluejay Therapeutics Domain Security](https://apis.io/security/bluejay-therapeutics/bluejay-therapeutics-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://bluejaytx.com/)
+- [Blog](https://bluejaytx.com/category/press-releases/)
+
+## API Evangelist rating
+
+**Kin Score 14.3** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 8.3 |
+| Contract governance | 4.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 25.6 |
+| Access clarity | 0.0 |
+
+**Agent readiness 6.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 13.3** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/bluejay-therapeutics/](https://apis.io/providers/bluejay-therapeutics/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Bluejay Therapeutics: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bluejay-therapeutics/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
